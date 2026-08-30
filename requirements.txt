@@ -1,0 +1,12 @@
+# ══════════════════════════════════════════════════════════════════════
+#  Puente para cPanel
+# ══════════════════════════════════════════════════════════════════════
+# Las dependencias de verdad viven en Backend/requirements.txt, junto al
+# codigo que las usa. Este archivo existe solo porque el instalador de
+# cPanel («Setup Python App» → Configuration files) busca un
+# requirements.txt en la RAIZ de la aplicacion y falla con un
+# «No such file or directory» si no lo encuentra.
+#
+# Un archivo de tres lineas evita tener que recordar esa peculiaridad en
+# cada despliegue.
+-r Backend/requirements.txt

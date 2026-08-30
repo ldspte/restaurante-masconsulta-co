@@ -1,0 +1,768 @@
+/* ══════════════════════════════════════════════════════════════════════
+   CAFETERÍA · Hoja de estilos única
+   Sistema de diseño mínimo basado en variables CSS. Un solo archivo porque
+   la aplicación no justifica un preprocesador ni un pipeline de compilación:
+   el navegador ya resuelve variables y anidamiento de cascada.
+   ══════════════════════════════════════════════════════════════════════ */
+:root {
+  /* Paleta del restaurante: verde bosque y latón. La misma del sitio público,
+     para que el personal y el cliente vean la misma marca.
+     El verde profundo da autoridad sin la pesadez del marrón anterior, y el
+     latón marca la acción sin competir con los semáforos de estado. */
+  --cafe:#1B4332; --cafe2:#123528; --crema:#F2EADF; --acento:#C9A227;
+  --verde:#2D6A4F; --rojo:#B91C1C; --azul:#0E7490; --morado:#6D28D9;
+  --tinta:#1A1A18; --gris:#6B6B63; --gris2:#9A9A90;
+  --linea:#E5DFD4; --fondo:#FBF7F0; --panel:#FFFFFF;
+  --r:12px; --sombra:0 1px 3px rgba(26,26,24,.07), 0 1px 2px rgba(26,26,24,.04);
+  --sombra-alta:0 10px 30px rgba(26,26,24,.13);
+}
+* { box-sizing:border-box; margin:0; padding:0; }
+html, body { height:100%; }
+body {
+  font-family:"Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  background:var(--fondo); color:var(--tinta); font-size:14px; line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+button, input, select, textarea { font-family:inherit; font-size:inherit; }
+
+/* ── LOGIN ───────────────────────────────────────────────────────────── */
+#login {
+  position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg,var(--cafe2) 0%,var(--cafe) 50%,#2D6A4F 100%);
+  z-index:1000; padding:20px;
+}
+.login-card {
+  background:#fff; border-radius:18px; padding:38px 34px; width:100%; max-width:400px;
+  box-shadow:var(--sombra-alta);
+}
+.login-card h1 { font-size:24px; font-weight:800; letter-spacing:-.4px; margin-bottom:4px; }
+.login-card .sub { color:var(--gris); font-size:13px; margin-bottom:24px; }
+.login-logo { font-size:44px; text-align:center; margin-bottom:10px; }
+.demo-box {
+  margin-top:20px; padding:12px 14px; background:var(--crema);
+  border-radius:10px; font-size:11.5px; color:var(--cafe2); line-height:1.7;
+}
+.demo-box b { display:block; margin-bottom:4px; font-size:11px; text-transform:uppercase; letter-spacing:.6px; }
+.demo-u { cursor:pointer; text-decoration:underline dotted; }
+.demo-u:hover { color:var(--acento); }
+
+/* ── ESTRUCTURA ──────────────────────────────────────────────────────── */
+#app { display:none; min-height:100vh; }
+#app.on { display:flex; }
+.sb {
+  width:246px; flex:0 0 246px; background:var(--cafe2); color:#E4EDE8;
+  display:flex; flex-direction:column; position:sticky; top:0; height:100vh; overflow-y:auto;
+}
+.sb-top { padding:18px 18px 14px; border-bottom:1px solid rgba(255,255,255,.1); }
+.sb-top .marca { font-size:17px; font-weight:800; color:#fff; letter-spacing:-.3px; }
+.sb-top .sede { font-size:11.5px; color:#A8C0B2; margin-top:2px; }
+.sb-nav { flex:1; padding:10px 10px 20px; }
+.sb-lbl {
+  font-size:10px; text-transform:uppercase; letter-spacing:1.2px; color:#8FA89A;
+  padding:14px 10px 6px; font-weight:700;
+}
+.sr {
+  width:100%; display:flex; align-items:center; gap:10px; padding:9px 10px;
+  background:transparent; border:none; border-radius:9px; color:#E4EDE8;
+  cursor:pointer; text-align:left; font-size:13.5px; transition:background .12s;
+}
+.sr:hover { background:rgba(255,255,255,.08); }
+.sr.on { background:rgba(201,162,39,.26); color:#fff; font-weight:600; }
+.sr .ico { width:26px; height:26px; border-radius:7px; display:grid; place-items:center; font-size:14px; flex:0 0 auto; }
+.sb-foot { padding:14px 16px; border-top:1px solid rgba(255,255,255,.1); font-size:12px; }
+.sb-foot .u { color:#fff; font-weight:600; }
+.sb-foot .r { color:#A8C0B2; font-size:11px; text-transform:capitalize; }
+.sb-foot button {
+  margin-top:10px; width:100%; padding:7px; background:rgba(255,255,255,.1);
+  border:none; border-radius:8px; color:#E4EDE8; cursor:pointer; font-size:12px;
+}
+.sb-foot button:hover { background:rgba(255,255,255,.18); }
+
+main { flex:1; min-width:0; }
+.page { display:none; padding:22px 26px 40px; }
+.page.on { display:block; }
+.ph { display:flex; align-items:flex-start; gap:14px; margin-bottom:20px; }
+.ph .barra { width:5px; flex:0 0 5px; align-self:stretch; border-radius:3px;
+             background:var(--cafe); }
+.pht { font-size:21px; font-weight:800; letter-spacing:-.4px; }
+.phs { color:var(--gris); font-size:13px; margin-top:2px; max-width:760px; }
+.ph .sp { flex:1; }
+.ph .btns { display:flex; gap:8px; flex-wrap:wrap; }
+
+/* ── COMPONENTES ─────────────────────────────────────────────────────── */
+.card { background:var(--panel); border:1px solid var(--linea); border-radius:var(--r); box-shadow:var(--sombra); }
+.card-h { padding:13px 17px; border-bottom:1px solid var(--linea); font-weight:700; font-size:14px;
+          display:flex; align-items:center; gap:9px; }
+.card-b { padding:17px; }
+
+.grid { display:grid; gap:14px; }
+.g2 { grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); }
+.g3 { grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); }
+.g4 { grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); }
+
+.kpi { background:var(--panel); border:1px solid var(--linea); border-radius:var(--r);
+       padding:15px 17px; box-shadow:var(--sombra); border-top:3px solid var(--cafe); }
+.kpi .k { font-size:11px; text-transform:uppercase; letter-spacing:.7px; color:var(--gris); font-weight:700; }
+.kpi .v { font-size:25px; font-weight:800; letter-spacing:-.9px; margin-top:5px; }
+.kpi .d { font-size:11.5px; color:var(--gris2); margin-top:3px; }
+.kpi.ok { border-top-color:var(--verde); } .kpi.warn { border-top-color:var(--acento); }
+.kpi.bad { border-top-color:var(--rojo); } .kpi.info { border-top-color:var(--azul); }
+
+.btn { padding:8px 15px; border:1px solid var(--linea); border-radius:9px; background:#fff;
+       cursor:pointer; font-size:13px; font-weight:600; color:var(--tinta); transition:all .12s; }
+.btn:hover { background:#F9FAFB; border-color:var(--gris2); }
+.btn:disabled { opacity:.5; cursor:not-allowed; }
+.btn-p { background:var(--cafe); border-color:var(--cafe); color:#fff; }
+.btn-p:hover { background:var(--cafe2); border-color:var(--cafe2); }
+.btn-a { background:var(--acento); border-color:var(--acento); color:#fff; }
+.btn-a:hover { filter:brightness(.93); }
+.btn-d { background:var(--rojo); border-color:var(--rojo); color:#fff; }
+.btn-d:hover { filter:brightness(.93); }
+.btn-g { background:var(--verde); border-color:var(--verde); color:#fff; }
+.btn-sm { padding:5px 10px; font-size:12px; border-radius:7px; }
+
+table { width:100%; border-collapse:collapse; font-size:13px; }
+th { text-align:left; padding:9px 11px; background:#F9FAFB; border-bottom:1px solid var(--linea);
+     font-size:10.5px; text-transform:uppercase; letter-spacing:.6px; color:var(--gris); font-weight:700; }
+td { padding:9px 11px; border-bottom:1px solid #F3F4F6; }
+tbody tr:hover { background:#FAFAFA; }
+tbody tr:last-child td { border-bottom:none; }
+.num { text-align:right; font-variant-numeric:tabular-nums; }
+.tabla-wrap { overflow-x:auto; }
+
+label { display:block; font-size:12px; font-weight:600; color:#374151; margin-bottom:5px; }
+/* Se estiliza por EXCLUSION, no enumerando tipos.
+   Antes la lista era `text, number, email, password, date`: cualquier campo con
+   otro tipo —tel, search, url, o sin type— salia sin ancho, sin borde y sin
+   relleno, es decir INVISIBLE, y el formulario parecia incompleto sin que nada
+   fallara. Enumerar lo que se acepta obliga a acordarse de ampliar la lista
+   cada vez; enumerar lo que se excluye es una lista corta y estable. */
+input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]):not([type=submit]):not([type=button]):not([type=reset]):not([type=color]),
+select, textarea {
+  width:100%; padding:8px 11px; border:1px solid var(--linea); border-radius:9px;
+  background:#fff; outline:none; transition:border-color .12s, box-shadow .12s;
+}
+input:focus, select:focus, textarea:focus {
+  border-color:var(--cafe); box-shadow:0 0 0 3px rgba(111,78,55,.1);
+}
+.campo { margin-bottom:13px; }
+.fila { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); }
+
+.tag { display:inline-block; padding:2.5px 9px; border-radius:20px; font-size:11px; font-weight:700; }
+.t-ok { background:#DCFCE7; color:#15803D; } .t-warn { background:#FEF3C7; color:#B45309; }
+.t-bad { background:#FEE2E2; color:#B91C1C; } .t-info { background:#DBEAFE; color:#1D4ED8; }
+.t-gris { background:#F3F4F6; color:#4B5563; }
+
+.vacio { padding:40px 20px; text-align:center; color:var(--gris2); }
+.vacio .e { font-size:40px; display:block; margin-bottom:8px; opacity:.55; }
+
+/* ── TABS ────────────────────────────────────────────────────────────── */
+.tabs { display:flex; gap:6px; border-bottom:2px solid var(--linea); margin-bottom:16px; flex-wrap:wrap; }
+.tab { padding:8px 15px; border:none; background:transparent; cursor:pointer; font-size:13px;
+       font-weight:600; color:var(--gris); border-bottom:2px solid transparent; margin-bottom:-2px; }
+.tab.on { color:var(--cafe); border-bottom-color:var(--cafe); }
+
+/* ── PUNTO DE VENTA ──────────────────────────────────────────────────── */
+.pos { display:grid; grid-template-columns:1fr 350px; gap:16px; align-items:start; }
+@media (max-width:1000px) { .pos { grid-template-columns:1fr; } }
+.prods { display:grid; gap:10px; grid-template-columns:repeat(auto-fill,minmax(132px,1fr)); }
+.prod {
+  background:#fff; border:1px solid var(--linea); border-radius:11px; padding:12px 10px;
+  cursor:pointer; text-align:center; transition:transform .1s, box-shadow .1s;
+}
+.prod:hover { transform:translateY(-2px); box-shadow:var(--sombra-alta); border-color:var(--cafe); }
+.prod .em { font-size:26px; display:block; }
+.prod .nm { font-size:12.5px; font-weight:600; margin:5px 0 3px; line-height:1.25; }
+.prod .pr { font-size:14px; font-weight:800; color:var(--cafe); }
+.ticket { position:sticky; top:16px; }
+.tk-item { display:flex; gap:8px; align-items:center; padding:8px 0; border-bottom:1px solid #F3F4F6; }
+.tk-item .n { flex:1; font-size:12.5px; font-weight:600; line-height:1.25; }
+.tk-item .q { display:flex; align-items:center; gap:5px; }
+.tk-item .q button { width:23px; height:23px; border:1px solid var(--linea); background:#fff;
+                     border-radius:6px; cursor:pointer; font-weight:700; line-height:1; }
+.tk-item .s { width:74px; text-align:right; font-weight:700; font-variant-numeric:tabular-nums; font-size:12.5px; }
+.tk-tot { display:flex; justify-content:space-between; padding:5px 0; font-size:13px; }
+.tk-tot.big { font-size:19px; font-weight:800; border-top:2px solid var(--tinta); margin-top:7px; padding-top:9px; }
+
+/* PROPINA · va separada del resto con su propio fondo. No es plata del
+   restaurante: es del personal, y verla aparte evita que se confunda con el
+   consumo o con el impuesto al leer el ticket de corrido. */
+.tk-propina { background:var(--arena,#F2EADF); border-radius:9px;
+              padding:7px 10px; margin:7px 0; }
+.tk-propina .tk-tot { padding:2px 0; }
+.tk-propina .tk-tot i { font-style:normal; font-size:10.5px; color:var(--gris2);
+                        text-transform:uppercase; letter-spacing:.4px; }
+.tk-prop-btns { display:flex; gap:5px; margin-top:6px; }
+.tk-prop-btns .btn { flex:1; font-size:11.5px; padding:5px 4px; white-space:nowrap; }
+/* La opcion elegida se ve elegida. Sin esto el cajero no sabe si ya pregunto. */
+.tk-prop-btns .btn.on { background:var(--cafe); color:#fff; border-color:var(--cafe); }
+
+/* ── MODAL ───────────────────────────────────────────────────────────── */
+.modal { position:fixed; inset:0; background:rgba(17,24,39,.55); display:none;
+         align-items:center; justify-content:center; z-index:900; padding:20px; }
+.modal.on { display:flex; }
+/* El que se desplaza es el CUERPO, no la caja entera: asi el titulo y los
+   botones de Cancelar/Confirmar quedan siempre a la vista. Antes se desplazaba
+   todo, y en un formulario largo —el cobro con adquiriente— el boton de
+   confirmar se iba de pantalla en un portatil de 13 pulgadas. */
+.modal-box { background:#fff; border-radius:15px; width:100%; max-width:560px;
+             max-height:92vh; display:flex; flex-direction:column;
+             box-shadow:var(--sombra-alta); }
+.modal-h { padding:16px 20px; border-bottom:1px solid var(--linea); display:flex;
+           align-items:center; justify-content:space-between; flex:0 0 auto; }
+.modal-h h3 { font-size:16px; font-weight:800; }
+.modal-h button { background:none; border:none; font-size:21px; cursor:pointer; color:var(--gris); line-height:1; }
+.modal-b { padding:20px; overflow-y:auto; flex:1 1 auto; min-height:0; }
+.modal-f { padding:14px 20px; border-top:1px solid var(--linea); display:flex;
+           justify-content:flex-end; gap:9px; background:#FAFAFA;
+           border-radius:0 0 15px 15px; flex:0 0 auto; }
+
+/* ── TOAST ───────────────────────────────────────────────────────────── */
+#toast { position:fixed; bottom:24px; left:50%; transform:translate(-50%,120px);
+         background:var(--tinta); color:#fff; padding:12px 22px; border-radius:11px;
+         font-size:13.5px; font-weight:600; z-index:1100; transition:transform .28s;
+         box-shadow:var(--sombra-alta); max-width:88vw; }
+#toast.on { transform:translate(-50%,0); }
+#toast.ok { background:var(--verde); } #toast.err { background:var(--rojo); }
+#toast.warn { background:var(--acento); }
+
+/* ── GRÁFICA ─────────────────────────────────────────────────────────── */
+/* Las reglas van ANIDADAS bajo `.barras` a proposito. Sueltas, `.barra`
+   chocaba con la franja de color de la cabecera de cada modulo (`.ph .barra`):
+   `width:5px` ganaba por especificidad, pero `flex:1` no lo sobreescribia
+   nadie, asi que la franja se estiraba y salia un rectangulo de color
+   ocupando media cabecera. Se veia como un error del sistema y era CSS. */
+.barras { display:flex; align-items:flex-end; gap:7px; height:150px; padding-top:10px; }
+.barras .barra { flex:1; display:flex; flex-direction:column; justify-content:flex-end;
+         align-items:center; gap:5px; min-width:0; }
+.barras .barra .b { width:100%; background:linear-gradient(180deg,var(--cafe),#40916C);
+            border-radius:5px 5px 0 0; min-height:3px; transition:opacity .15s; }
+.barras .barra:hover .b { opacity:.78; }
+.barras .barra .l { font-size:9.5px; color:var(--gris2); white-space:nowrap; }
+.barras .barra .v { font-size:10px; font-weight:700; color:var(--cafe); }
+
+.aviso { padding:11px 14px; border-radius:10px; font-size:12.5px; margin-bottom:14px;
+         border-left:4px solid; line-height:1.5; }
+.aviso.w { background:#FFFBEB; border-color:var(--acento); color:#92400E; }
+.aviso.e { background:#FEF2F2; border-color:var(--rojo); color:#991B1B; }
+.aviso.i { background:#EFF6FF; border-color:var(--azul); color:#1E40AF; }
+.aviso.g { background:#F0FDF4; border-color:var(--verde); color:#166534; }
+
+.mut { color:var(--gris); } .peq { font-size:12px; } .b { font-weight:700; }
+.mb { margin-bottom:14px; } .mt { margin-top:14px; }
+.flex { display:flex; gap:9px; align-items:center; flex-wrap:wrap; }
+
+
+/* ══════════════════════════════════════════════════════════════════════
+   SALÓN · mapa de mesas
+   Se lee a distancia: el estado se comunica con color y el tiempo con un
+   contador, no con texto que haya que acercarse a leer.
+   ══════════════════════════════════════════════════════════════════════ */
+.mesas { display:grid; gap:13px; grid-template-columns:repeat(auto-fill,minmax(146px,1fr)); }
+.mesa {
+  background:var(--panel); border:2px solid var(--linea); border-radius:13px;
+  padding:13px 11px; text-align:center; cursor:pointer;
+  transition:transform .12s, box-shadow .12s;
+}
+.mesa:hover { transform:translateY(-3px); box-shadow:var(--sombra-alta); }
+.mesa-cod { font-size:21px; font-weight:800; letter-spacing:-.5px; }
+.mesa-est {
+  display:inline-block; color:#fff; font-size:10.5px; font-weight:700;
+  padding:2.5px 10px; border-radius:100px; margin:5px 0 7px;
+  text-transform:uppercase; letter-spacing:.6px;
+}
+.mesa-cap { font-size:12.5px; color:var(--gris); }
+.mesa-cta { font-size:15px; font-weight:800; color:var(--cafe); margin-top:4px; }
+.mesa-min { font-size:11.5px; color:var(--gris2); margin-top:3px; }
+.mesa-min.alerta { color:var(--rojo); font-weight:700; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   COCINA · pantalla de preparación (KDS)
+   Se mira desde metro y medio con las manos ocupadas: tipografía grande,
+   contraste alto y un solo toque por acción.
+   ══════════════════════════════════════════════════════════════════════ */
+.kds { display:grid; gap:15px; grid-template-columns:repeat(auto-fill,minmax(252px,1fr)); }
+.kds-card {
+  background:var(--panel); border-radius:13px; overflow:hidden;
+  box-shadow:var(--sombra); border:2px solid transparent; display:flex; flex-direction:column;
+}
+.kds-card.atencion { border-color:var(--acento); }
+.kds-card.retrasado { border-color:var(--rojo); animation:pulso 1.8s ease-in-out infinite; }
+.kds-card.listo { border-color:var(--verde); opacity:.82; }
+@keyframes pulso { 0%,100%{box-shadow:var(--sombra)} 50%{box-shadow:0 0 0 5px rgba(185,28,28,.16)} }
+.kds-top {
+  color:#fff; padding:8px 13px; font-size:12.5px; font-weight:700;
+  display:flex; justify-content:space-between; align-items:center;
+}
+.kds-min { font-size:15px; font-variant-numeric:tabular-nums; }
+.kds-body { padding:15px 14px; flex:1; }
+.kds-cant { font-size:29px; font-weight:800; color:var(--cafe); line-height:1; }
+.kds-nom { font-size:17px; font-weight:700; margin:5px 0 7px; line-height:1.25; }
+.kds-nota {
+  background:#FEF3C7; color:#92400E; padding:7px 10px; border-radius:8px;
+  font-size:13px; font-weight:600; margin-bottom:7px;
+}
+.kds-pie { padding:0 14px 14px; }
+.kds-espera {
+  background:#DCFCE7; color:#166534; padding:13px; border-radius:9px;
+  text-align:center; font-weight:700; font-size:14px;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   COMPONENTES DE LOS MÓDULOS
+   Van al final y no dispersos: cuando una clase aparece en cuatro pantallas
+   distintas, buscarla en cuatro archivos cuesta más que leer un bloque largo.
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* ── Pestañas ───────────────────────────────────────────────────────── */
+.tabs { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:16px;
+        border-bottom:2px solid var(--linea); }
+.tab {
+  padding:9px 16px; background:transparent; border:none; border-bottom:2px solid transparent;
+  margin-bottom:-2px; cursor:pointer; font-size:13.5px; font-weight:600; color:var(--gris);
+  transition:color .12s, border-color .12s;
+}
+.tab:hover { color:var(--tinta); }
+.tab.on { color:var(--cafe); border-bottom-color:var(--cafe); }
+
+/* ── Avisos ─────────────────────────────────────────────────────────── */
+.aviso-alerta {
+  background:#FEF2F2; border-left:4px solid var(--rojo); color:#7F1D1D;
+  padding:12px 16px; border-radius:9px; font-size:13.5px; font-weight:600;
+}
+.aviso-suave {
+  background:var(--crema); border-left:4px solid var(--acento); color:var(--cafe2);
+  padding:12px 16px; border-radius:9px; font-size:13px; line-height:1.6;
+}
+.nota { font-size:12.5px; color:var(--gris); line-height:1.65; margin-top:10px; }
+.sug  { font-size:11.5px; color:var(--gris2); margin-top:2px; }
+
+/* ── Píldoras de estado ─────────────────────────────────────────────── */
+.pill {
+  display:inline-block; padding:2px 9px; border-radius:100px; font-size:11px;
+  font-weight:700; text-transform:capitalize; background:#F1F5F9; color:var(--gris);
+  white-space:nowrap;
+}
+.pill.ok   { background:#DCFCE7; color:#166534; }
+.pill.warn { background:#FEF3C7; color:#92400E; }
+.pill.bad  { background:#FEE2E2; color:#991B1B; }
+.pill.info { background:#DBEAFE; color:#1E40AF; }
+
+/* ── Barra de avance por categoría ──────────────────────────────────── */
+.cat-linea { margin-bottom:13px; }
+.cat-cab { display:flex; justify-content:space-between; font-size:13px; margin-bottom:5px; }
+.cat-cab span { color:var(--gris); }
+.cat-barra { height:7px; background:var(--linea); border-radius:100px; overflow:hidden; }
+.cat-barra > div { height:100%; background:var(--cafe); border-radius:100px;
+                   transition:width .3s; }
+
+/* ── Fichas de datos ────────────────────────────────────────────────── */
+.chip-dato { background:var(--crema); border-radius:10px; padding:11px 14px; }
+.chip-dato span { display:block; font-size:11px; text-transform:uppercase;
+                  letter-spacing:.6px; color:var(--gris); font-weight:700; }
+.chip-dato b { font-size:18px; letter-spacing:-.4px; }
+table.ficha { font-size:13px; }
+table.ficha th { background:transparent; text-transform:none; letter-spacing:0;
+                 font-size:12px; color:var(--gris); width:150px; padding:6px 0;
+                 border-bottom:1px solid #F3F4F6; }
+table.ficha td { padding:6px 0; border-bottom:1px solid #F3F4F6; }
+.sub-t { font-size:13px; font-weight:700; margin:18px 0 8px; color:var(--cafe2); }
+.mini-serie { display:flex; gap:8px; overflow-x:auto; padding-bottom:6px; }
+.mini-serie > div { flex:0 0 auto; background:var(--crema); border-radius:9px;
+                    padding:8px 12px; text-align:center; }
+.mini-serie span { display:block; font-size:10.5px; color:var(--gris); }
+.mini-serie b { font-size:13px; }
+.fila-baja { opacity:.5; }
+.fila { display:flex; gap:12px; flex-wrap:wrap; }
+.fila > .campo { flex:1; min-width:130px; }
+.ancho { width:100%; }
+.cufe { font-family:ui-monospace, Consolas, monospace; font-size:10px; }
+.kpi .v small { font-size:12px; font-weight:600; color:var(--gris); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   SOBRANTES · lotes del calentado
+   El lote se lee como lo que es: comida con reloj. Lo primero que salta a la
+   vista es cuánto le queda, no cuánto vale.
+   ══════════════════════════════════════════════════════════════════════ */
+.lotes { display:grid; gap:12px; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); }
+.lote { border:2px solid var(--linea); border-radius:12px; padding:13px;
+        background:var(--panel); }
+.lote.pronto  { border-color:var(--acento); }
+.lote.urgente { border-color:#EA580C; background:#FFF7ED; }
+.lote.vencido { border-color:var(--rojo); background:#FEF2F2; }
+.lote-cab { display:flex; justify-content:space-between; align-items:baseline; gap:8px; }
+.lote-reloj { font-size:11.5px; font-weight:800; color:var(--gris); white-space:nowrap;
+              font-variant-numeric:tabular-nums; }
+.lote.urgente .lote-reloj, .lote.vencido .lote-reloj { color:var(--rojo); }
+.lote-cant { font-size:22px; font-weight:800; letter-spacing:-.6px; margin:7px 0 4px; }
+.lote-de { font-size:12px; font-weight:400; color:var(--gris2); }
+.lote-pie { display:flex; justify-content:space-between; font-size:11.5px;
+            color:var(--gris); margin-bottom:9px; }
+.tabla-cierre input, .tabla-cierre select { padding:6px 8px; font-size:13px; }
+.tabla-cierre td { vertical-align:top; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   COMANDAS
+   ══════════════════════════════════════════════════════════════════════ */
+.lista-comanda { list-style:none; margin:10px 0; }
+.lista-comanda li { display:flex; align-items:center; gap:8px; padding:6px 0;
+                    border-bottom:1px solid #F3F4F6; font-size:13px; }
+.lista-comanda .cant { font-weight:800; color:var(--cafe); min-width:28px; }
+.lista-comanda .nom { flex:1; }
+.lista-comanda .nom em { color:var(--gris2); font-size:12px; }
+.lista-comanda .val { font-variant-numeric:tabular-nums; font-weight:600; }
+.lista-comanda .est { font-size:10px; padding:1px 7px; border-radius:100px; }
+/* El boton ocupa el mismo hueco que la etiqueta de estado, para que la
+   columna de precios no baile cuando un plato pasa de «en cocina» a listo. */
+.lista-comanda .entregar { font-size:10.5px; padding:3px 9px; line-height:1.3;
+                           white-space:nowrap; }
+/* Titulo de bloque del tablero de comandas: separa «en curso» de «servidas
+   por cobrar» sin meter una tarjeta mas, que competiria con las mesas. */
+.sec-tit { display:flex; align-items:center; gap:9px; font-weight:800; font-size:13px;
+           text-transform:uppercase; letter-spacing:.6px; color:var(--gris);
+           margin:18px 0 10px; }
+.sec-tit:first-child { margin-top:0; }
+
+.comanda-total { display:flex; justify-content:space-between; align-items:baseline;
+                 padding-top:9px; border-top:2px solid var(--linea); font-size:15px; }
+.comanda-total b { font-size:19px; letter-spacing:-.5px; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   PRODUCCIÓN Y COMPRAS
+   ══════════════════════════════════════════════════════════════════════ */
+.ficha-prod { background:var(--panel); border:1px solid var(--linea); border-radius:11px;
+              padding:13px; box-shadow:var(--sombra); }
+.fp-nom { font-weight:700; font-size:14px; }
+.fp-dest { font-size:12px; color:var(--gris); margin:3px 0 8px; }
+.fp-datos { display:flex; justify-content:space-between; font-size:12.5px;
+            color:var(--gris); margin-bottom:6px; }
+.ficha-prod button { margin-top:9px; }
+.prov { background:var(--crema); border-radius:11px; padding:14px; }
+.prov-nom { font-weight:700; font-size:13.5px; line-height:1.3; }
+.prov-dato { font-size:12.5px; color:var(--gris); margin-top:5px; }
+.prov-pie { display:flex; justify-content:space-between; margin-top:9px;
+            padding-top:9px; border-top:1px solid var(--linea);
+            font-size:11.5px; color:var(--gris2); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   SG-SST Y SITIO WEB
+   ══════════════════════════════════════════════════════════════════════ */
+.semaforo { display:flex; align-items:center; gap:18px; padding:18px;
+            border-radius:12px; margin-bottom:18px; background:var(--crema); }
+.semaforo.ok   { background:#DCFCE7; }
+.semaforo.warn { background:#FEF3C7; }
+.semaforo.bad  { background:#FEE2E2; }
+.sem-num { font-size:38px; font-weight:800; letter-spacing:-1.5px; }
+.resena-adm { border:1px solid var(--linea); border-left:4px solid var(--gris2);
+              border-radius:10px; padding:14px; margin-bottom:12px; }
+.resena-adm.pendiente { border-left-color:var(--acento); background:#FFFBEB; }
+.resena-adm.publicada { border-left-color:var(--verde); }
+.resena-adm.rechazada { border-left-color:var(--rojo); opacity:.6; }
+.ra-cab { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+.ra-est { color:var(--acento); letter-spacing:1px; }
+.ra-txt { font-size:13.5px; line-height:1.6; margin-bottom:10px; }
+.ra-resp { background:var(--crema); border-radius:8px; padding:10px 12px;
+           font-size:12.5px; margin-bottom:10px; }
+
+/* ── Dirección pública del sitio ─────────────────────────────────────
+   Aparece completa y como enlace real. Un botón que llama a window.open se
+   pierde en la esquina y, si el navegador bloquea emergentes, falla en
+   silencio: el usuario oprime y no pasa nada.
+   ──────────────────────────────────────────────────────────────────── */
+.url-publica {
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  background:var(--cafe2); color:#E4EDE8; padding:13px 17px;
+  border-radius:11px; margin-bottom:16px;
+}
+.up-et { font-size:11px; text-transform:uppercase; letter-spacing:.8px;
+         font-weight:700; color:#A8C0B2; }
+.up-link {
+  flex:1; min-width:220px; color:#fff; font-weight:700; font-size:14px;
+  text-decoration:none; border-bottom:1px dashed rgba(255,255,255,.45);
+  padding-bottom:1px; word-break:break-all;
+}
+.up-link:hover { color:var(--laton2, #E0BC4A); border-bottom-style:solid; }
+
+/* ── Comanda: nota de la mesa ────────────────────────────────────────
+   «Celiaco» o «alérgico al maní» no puede ir en letra pequeña junto al
+   número de comensales. Va destacada o no sirve de nada.
+   ──────────────────────────────────────────────────────────────────── */
+.comanda-nota {
+  background:#FEF3C7; color:#92400E; border-radius:8px; padding:8px 11px;
+  font-size:12.5px; font-weight:700; margin:9px 0 4px; line-height:1.5;
+}
+.lista-comanda .est-punto {
+  display:inline-block; width:7px; height:7px; border-radius:50%;
+  margin-left:7px; vertical-align:middle;
+}
+.comanda-total small { font-size:11.5px; color:var(--gris2); font-weight:400; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   SG-SST
+   El módulo con más peso visual del sistema, y con razón: es el que se le
+   muestra a un inspector. Tres piezas mandan — el anillo de cumplimiento,
+   los carriles del ciclo PHVA y la matriz de riesgo.
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* ── Semáforo de la autoevaluación ─────────────────────────────────── */
+.sst-semaforo {
+  display:flex; align-items:center; gap:28px; padding:22px 26px;
+  border-radius:14px; background:var(--crema); flex-wrap:wrap;
+}
+.sst-semaforo.ok   { background:#F0FDF4; }
+.sst-semaforo.warn { background:#FFFBEB; }
+.sst-semaforo.bad  { background:#FEF2F2; }
+.anillo { width:130px; height:130px; flex:0 0 auto; }
+.an-num { font-size:30px; font-weight:800; fill:var(--tinta);
+          font-family:inherit; letter-spacing:-1px; }
+.an-pct { font-size:9px; font-weight:700; fill:var(--gris2);
+          letter-spacing:1.6px; font-family:inherit; }
+.sem-txt { flex:1; min-width:240px; }
+.sem-val { font-size:24px; font-weight:800; letter-spacing:-.6px; margin-bottom:4px; }
+.sem-pts { font-size:13px; color:var(--gris); margin-bottom:10px; }
+.sem-que { font-size:13.5px; line-height:1.65; color:var(--tinta);
+           border-left:3px solid currentColor; padding-left:13px; opacity:.85; }
+
+/* ── Carriles del ciclo PHVA ───────────────────────────────────────── */
+.phva {
+  display:grid; gap:14px; margin-bottom:14px;
+  grid-template-columns:repeat(auto-fit,minmax(198px,1fr));
+}
+.fase {
+  position:relative; background:var(--panel); border:2px solid var(--linea);
+  border-top:4px solid var(--fc); border-radius:12px; padding:16px 18px;
+  cursor:pointer; transition:transform .16s, box-shadow .16s, border-color .16s;
+}
+.fase:hover { transform:translateY(-3px); box-shadow:var(--sombra-alta); }
+.fase.on { border-color:var(--fc); background:#FCFCFB; }
+.fase-cab { display:flex; align-items:center; gap:9px; margin-bottom:9px; }
+.fase-let {
+  width:24px; height:24px; border-radius:6px; background:var(--fc); color:#fff;
+  display:grid; place-items:center; font-size:12px; font-weight:800; flex:0 0 auto;
+}
+.fase-nom { font-size:13px; font-weight:800; text-transform:uppercase;
+            letter-spacing:1.1px; color:var(--fc); }
+.fase-pct { font-size:31px; font-weight:800; letter-spacing:-1.2px; line-height:1; }
+.fase-pct small { font-size:14px; font-weight:600; color:var(--gris2); margin-left:2px; }
+.fase-barra { height:6px; background:var(--linea); border-radius:100px;
+              overflow:hidden; margin:9px 0 8px; }
+.fase-barra > div { height:100%; background:var(--fc); border-radius:100px;
+                    transition:width .35s; }
+.fase-pts { font-size:11.5px; color:var(--gris); font-weight:600; }
+.fase-desc { font-size:11.5px; color:var(--gris2); margin-top:6px; line-height:1.5; }
+.fase-flecha {
+  position:absolute; right:-13px; top:50%; transform:translateY(-50%);
+  color:var(--gris2); font-size:17px; z-index:2;
+}
+@media (max-width:900px) { .fase-flecha { display:none; } }
+.fase-chip {
+  display:inline-block; width:21px; height:21px; border-radius:6px; color:#fff;
+  font-size:10.5px; font-weight:800; line-height:21px; text-align:center;
+}
+tr.est-ok td { background:#F6FDF8; }
+
+/* Casilla de verificación grande: se marca con el dedo, en una tableta,
+   parado frente al puesto de trabajo. */
+.check { display:inline-flex; cursor:pointer; }
+.check input { position:absolute; opacity:0; width:0; height:0; }
+.check span {
+  width:22px; height:22px; border:2px solid var(--linea); border-radius:6px;
+  display:block; position:relative; transition:all .15s; background:#fff;
+}
+.check input:checked + span { background:var(--verde); border-color:var(--verde); }
+.check input:checked + span::after {
+  content:""; position:absolute; left:6px; top:2px; width:6px; height:11px;
+  border:solid #fff; border-width:0 2.5px 2.5px 0; transform:rotate(42deg);
+}
+.check-linea { display:flex; align-items:center; gap:8px; font-weight:600;
+               text-transform:none; letter-spacing:0; font-size:13.5px; }
+
+/* ── Niveles de riesgo ─────────────────────────────────────────────── */
+.nivel-card {
+  border-radius:12px; padding:15px 17px; border:1px solid var(--linea);
+  background:var(--panel); display:flex; align-items:center; gap:14px;
+}
+.nivel-card.bad  { background:#FEF2F2; border-color:#FECACA; }
+.nivel-card.warn { background:#FFFBEB; border-color:#FDE68A; }
+.nivel-card.ok   { background:#F0FDF4; border-color:#BBF7D0; }
+.nv-rom {
+  font-size:19px; font-weight:800; width:42px; height:42px; border-radius:10px;
+  display:grid; place-items:center; background:rgba(0,0,0,.06); flex:0 0 auto;
+}
+.nv-n { font-size:27px; font-weight:800; letter-spacing:-1px; }
+.nv-et { font-size:11.5px; color:var(--gris); line-height:1.4; }
+
+/* ── Matriz GTC 45 ─────────────────────────────────────────────────── */
+table.matriz { table-layout:fixed; }
+table.matriz th, table.matriz td { border:1px solid var(--linea); }
+.mx-esq {
+  background:var(--crema) !important; font-size:10.5px !important;
+  text-transform:none !important; letter-spacing:0 !important; width:180px;
+}
+table.matriz thead th b { display:block; font-size:12px; color:var(--tinta); }
+table.matriz thead th span { font-size:10.5px; color:var(--gris2); font-weight:600; }
+.mx-fila {
+  background:var(--crema) !important; text-align:left !important;
+  text-transform:none !important; letter-spacing:0 !important;
+}
+.mx-fila b { display:block; font-size:12px; color:var(--tinta); }
+.mx-fila span { font-size:10.5px; color:var(--gris2); }
+.mx-celda {
+  position:relative; vertical-align:top; height:78px; padding:22px 6px 6px !important;
+}
+.mx-celda.nI   { background:#FEE2E2; }
+.mx-celda.nII  { background:#FED7AA; }
+.mx-celda.nIII { background:#FEF3C7; }
+.mx-celda.nIV  { background:#DCFCE7; }
+.mx-niv {
+  position:absolute; top:5px; left:7px; font-size:10.5px; font-weight:800;
+  color:rgba(0,0,0,.42); letter-spacing:.6px;
+}
+.mx-puntos { display:flex; flex-direction:column; gap:3px; }
+.mx-punto {
+  background:rgba(255,255,255,.82); border-radius:5px; padding:3px 6px;
+  font-size:10.5px; font-weight:700; color:var(--tinta); line-height:1.3;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap; cursor:help;
+}
+
+/* ── Cronograma del plan anual ─────────────────────────────────────── */
+table.crono th.cr-mes { width:26px; text-align:center; padding:8px 2px; }
+table.crono th.cr-hoy { background:var(--crema); color:var(--cafe); font-weight:800; }
+td.cr-c { padding:4px 2px !important; }
+td.cr-c::after {
+  content:""; display:block; height:15px; border-radius:4px; background:#F3F4F6;
+}
+td.cr-prog::after { background:var(--acento); }
+td.cr-ok::after   { background:var(--verde); }
+td.cr-venc::after { background:var(--rojo); }
+.crono-leyenda {
+  display:flex; gap:20px; flex-wrap:wrap; margin-top:13px;
+  font-size:12px; color:var(--gris);
+}
+.crono-leyenda span { display:flex; align-items:center; gap:6px; }
+.crono-leyenda i { width:15px; height:11px; border-radius:3px; display:block; }
+.crono-leyenda i.cr-prog { background:var(--acento); }
+.crono-leyenda i.cr-ok   { background:var(--verde); }
+.crono-leyenda i.cr-venc { background:var(--rojo); }
+.crono-leyenda i.cr-hoy-l { background:var(--crema); border:1px solid var(--linea); }
+
+/* ── Indicadores ───────────────────────────────────────────────────── */
+.ind-card {
+  background:var(--crema); border-radius:12px; padding:19px 21px;
+  border-left:4px solid var(--acento);
+}
+.ind-nom { font-size:12px; font-weight:800; text-transform:uppercase;
+           letter-spacing:1px; color:var(--gris); margin-bottom:7px; }
+.ind-val { font-size:33px; font-weight:800; letter-spacing:-1.3px; line-height:1; }
+.ind-val small { font-size:12.5px; font-weight:600; color:var(--gris2);
+                 letter-spacing:0; }
+.ind-det { font-size:12.5px; color:var(--gris); margin-top:8px; }
+
+/* ── Asiento en la pantalla de cocina ───────────────────────────────── */
+.kds-puesto {
+  background:rgba(255,255,255,.26); border-radius:100px; padding:2px 10px;
+  font-size:11px; font-weight:800; letter-spacing:.4px; white-space:nowrap;
+}
+.kds-top { gap:8px; }
+
+/* ── Comanda agrupada por asiento ───────────────────────────────────── */
+.puesto-grupo { margin-bottom:12px; }
+.puesto-cab {
+  display:flex; align-items:center; gap:8px; margin:12px 0 5px;
+  font-size:11.5px; font-weight:800; letter-spacing:.9px; text-transform:uppercase;
+  color:var(--cafe);
+}
+.puesto-num {
+  width:22px; height:22px; border-radius:50%; background:var(--cafe); color:#fff;
+  display:grid; place-items:center; font-size:11.5px; flex:0 0 auto;
+}
+.puesto-num.mesa { background:var(--gris2); }
+.puesto-cab .sp-linea { flex:1; height:1px; background:var(--linea); }
+.puesto-sub { font-size:11px; color:var(--gris2); font-weight:600; letter-spacing:0;
+              text-transform:none; }
+
+/* ── Comanda: control de asientos ────────────────────────────────────
+   Los tres estados del asiento se distinguen por color en el número, no
+   por texto: el mesero cuenta los grises de un vistazo y sabe cuántos le
+   faltan por atender.
+   ──────────────────────────────────────────────────────────────────── */
+.pide-personas {
+  background:var(--crema); border:1px dashed var(--acento); border-radius:11px;
+  padding:14px 16px; margin:12px 0;
+}
+.pide-personas label {
+  font-size:13px; font-weight:700; color:var(--cafe2); margin-bottom:9px;
+}
+.pp-fila { display:flex; gap:8px; }
+.pp-fila input { flex:1; }
+
+.asientos-barra {
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  background:#F0FDF4; border-radius:9px; padding:8px 12px; margin:11px 0 4px;
+  font-size:12.5px; color:#166534;
+}
+.asientos-barra.falta { background:#FEF3C7; color:#92400E; }
+.ab-txt { flex:1; }
+.ab-txt b { font-size:14px; }
+
+.puesto-num.pendiente { background:var(--gris2); }
+.puesto-num.sin       { background:var(--linea); color:var(--gris); }
+.puesto-vacio {
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  font-size:12.5px; color:var(--gris2); padding:5px 0 9px 30px;
+}
+.puesto-vacio.sin { color:var(--gris); font-style:italic; }
+.puesto-vacio button { margin-left:auto; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   ANEXOS · componente compartido
+   El clip en la tabla tiene dos estados legibles a distancia: apagado si la
+   ficha no tiene soporte, encendido con el número si lo tiene. En una tabla
+   de treinta estándares, eso es lo que deja ver de un vistazo cuáles están
+   marcados sin documento.
+   ══════════════════════════════════════════════════════════════════════ */
+.clip {
+  background:none; border:1px solid var(--linea); border-radius:8px;
+  padding:4px 8px; cursor:pointer; font-size:14px; line-height:1;
+  color:var(--gris2); position:relative; transition:all .14s;
+}
+.clip:hover { border-color:var(--cafe); color:var(--cafe); background:var(--crema); }
+.clip.con { border-color:var(--verde); color:var(--verde); background:#F0FDF4; }
+.clip span {
+  font-size:10px; font-weight:800; margin-left:3px;
+  font-family:var(--sans, inherit);
+}
+
+.ax-cargando { text-align:center; color:var(--gris2); padding:26px 0; }
+.ax-ficha {
+  font-size:13px; color:var(--gris); background:var(--crema);
+  border-radius:8px; padding:9px 12px; margin-bottom:16px; line-height:1.5;
+}
+.ax-zona {
+  border:1px dashed var(--linea); border-radius:11px; padding:15px;
+  margin-bottom:18px; background:#FCFCFB;
+}
+.ax-zona input[type=file] {
+  width:100%; padding:9px; border:1px solid var(--linea); border-radius:9px;
+  background:#fff; margin-bottom:12px; font-size:13px;
+}
+.ax-vacio {
+  text-align:center; color:var(--gris2); padding:22px 10px; font-size:14px;
+  line-height:1.6;
+}
+.ax-vacio span { font-size:12.5px; display:block; margin-top:6px; }
+
+.ax-lista { list-style:none; }
+.ax-lista li {
+  display:flex; align-items:center; gap:12px; padding:11px 0;
+  border-bottom:1px solid #F3F4F6;
+}
+.ax-lista li:last-child { border-bottom:none; }
+.ax-ico { font-size:22px; flex:0 0 auto; }
+.ax-datos { flex:1; min-width:0; }
+.ax-datos b { font-size:13.5px; display:block; word-break:break-word; }
+.ax-desc { font-size:12.5px; color:var(--gris); margin-top:2px; }
+.ax-meta { font-size:11px; color:var(--gris2); margin-top:3px; }
+
+/* Deducción en rojo: se resta del pago, no se suma. */
+td.num.neg { color:var(--rojo); font-weight:600; }

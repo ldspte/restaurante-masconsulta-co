@@ -1,0 +1,17 @@
+# Cafetería · Dependencias del backend
+# Todas puras (sin compilación nativa): instalables en cualquier entorno.
+
+fastapi==0.115.5          # Framework HTTP con validación e inyección de dependencias
+uvicorn==0.32.1           # Servidor ASGI
+SQLAlchemy==2.0.36        # Core (motor + text), no ORM: ver db.py
+PyJWT==2.12.1             # Tokens de sesión firmados
+python-multipart==0.0.20  # Formularios; requerido por OAuth2PasswordBearer
+openpyxl==3.1.5           # Plan anual del SG-SST en Excel (importar/exportar)
+
+PyMySQL==1.1.1            # Conector de MySQL/MariaDB
+python-dotenv==1.0.1      # Lee Backend/.env
+a2wsgi==1.10.7            # Puente ASGI→WSGI para Passenger (cPanel)
+
+# Pruebas
+pytest==8.3.4
+httpx==0.28.1             # Cliente que usa TestClient de FastAPI

@@ -1,0 +1,704 @@
+/* ══════════════════════════════════════════════════════════════════════
+   RESTAURANTE · Sitio público
+
+   Una página de restaurante no se juzga como una aplicación: se juzga como un
+   lugar. Tiene que dar ganas de ir. Por eso aquí hay decisiones que en el
+   sistema interno serían un defecto —tipografía enorme, aire generoso,
+   ilustración— y que aquí son el trabajo.
+
+   PALETA · verde bosque y latón
+   El verde profundo da autoridad sin la pesadez del marrón de cafetería
+   genérica; el latón aporta la calidez del pan recién horneado sin recurrir
+   al naranja de comida rápida.
+
+   SIN UNA SOLA IMAGEN EXTERNA
+   Todo el arte es SVG en línea y la textura son gradientes CSS. El sitio se
+   sirve completo desde su propio servidor: funciona sin internet, carga
+   instantáneo y no obliga a relajar la política `default-src 'self'`.
+   ══════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --verde:#1B4332; --verde2:#2D6A4F; --verde3:#40916C; --verde4:#0F2A20;
+  --laton:#C9A227; --laton2:#E0BC4A;
+  --crema:#FBF7F0; --arena:#F2EADF; --arena2:#EADFCE;
+  --tinta:#1A1A18; --gris:#6B6B63; --gris2:#9A9A90;
+  --linea:#E5DFD4;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --sans:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+  --r:14px;
+  --sombra:0 2px 8px rgba(27,67,50,.06), 0 1px 2px rgba(27,67,50,.04);
+  --sombra-alta:0 18px 48px rgba(27,67,50,.14);
+}
+
+* { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; scroll-padding-top:84px; }
+body {
+  font-family:var(--sans); background:var(--crema); color:var(--tinta);
+  font-size:16px; line-height:1.65; -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img, svg { max-width:100%; }
+button, input, select, textarea { font-family:inherit; font-size:inherit; }
+
+/* Textura de papel: dos tramas cruzadas de opacidad mínima. Se percibe como
+   calidez, no como patrón — que es exactamente el punto. */
+.seccion, .hero {
+  background-image:
+    repeating-linear-gradient(45deg, rgba(27,67,50,.011) 0 2px, transparent 2px 5px),
+    repeating-linear-gradient(-45deg, rgba(201,162,39,.014) 0 2px, transparent 2px 6px);
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   NAVEGACIÓN
+   ══════════════════════════════════════════════════════════════════════ */
+.nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  display:flex; align-items:center; gap:26px;
+  padding:18px 44px; transition:padding .25s, background .25s, box-shadow .25s;
+}
+.nav.pegado {
+  padding:11px 44px; background:rgba(251,247,240,.94);
+  backdrop-filter:blur(14px); box-shadow:0 1px 0 var(--linea), var(--sombra);
+}
+.marca { display:flex; align-items:center; gap:11px; text-decoration:none; color:var(--verde); }
+.marca-ico { width:30px; height:30px; flex:0 0 auto; }
+.marca-txt {
+  font-family:var(--serif); font-size:22px; font-weight:700;
+  letter-spacing:-.3px; color:var(--verde);
+}
+.nav-links { display:flex; gap:28px; margin-left:auto; }
+.nav-links a {
+  color:var(--tinta); text-decoration:none; font-size:15px; font-weight:500;
+  position:relative; padding:4px 0;
+}
+.nav-links a::after {
+  content:""; position:absolute; left:0; right:100%; bottom:0; height:2px;
+  background:var(--laton); transition:right .25s;
+}
+.nav-links a:hover::after { right:0; }
+
+.btn-reserva {
+  background:var(--verde); color:#fff; border:none; border-radius:100px;
+  padding:11px 24px; font-size:14.5px; font-weight:600; cursor:pointer;
+  transition:background .18s, transform .18s;
+}
+.btn-reserva:hover { background:var(--verde2); transform:translateY(-1px); }
+
+/* Puerta de servicio. Discreta a propósito: el cliente no debería tropezar
+   con ella, pero el mesero que llega a las seis de la mañana tiene que
+   hallarla sin buscar. */
+.btn-ingresar {
+  display:flex; align-items:center; gap:7px; text-decoration:none;
+  color:var(--gris); font-size:13.5px; font-weight:600;
+  padding:9px 15px; border-radius:100px; border:1px solid var(--linea);
+  background:rgba(255,255,255,.55); transition:all .18s; white-space:nowrap;
+}
+.btn-ingresar:hover { color:var(--verde); border-color:var(--verde3); background:#fff; }
+.bi-ico { width:16px; height:16px; flex:0 0 auto; }
+.nav-burger {
+  display:none; background:none; border:none; font-size:24px;
+  color:var(--verde); cursor:pointer; padding:4px 8px;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   PORTADA
+   ══════════════════════════════════════════════════════════════════════ */
+.hero {
+  position:relative; min-height:100vh; display:flex; align-items:center;
+  justify-content:center; text-align:center; padding:130px 24px 300px;
+  overflow:hidden;
+}
+.hero-fondo {
+  position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(1000px 520px at 50% -8%, rgba(224,188,74,.20), transparent 62%),
+    radial-gradient(760px 460px at 12% 24%, rgba(64,145,108,.11), transparent 60%),
+    radial-gradient(700px 440px at 88% 18%, rgba(224,188,74,.10), transparent 60%),
+    linear-gradient(180deg, var(--arena) 0%, var(--crema) 46%);
+}
+.hero-cont { position:relative; z-index:2; max-width:780px; }
+
+.hero-sello {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(255,255,255,.75); border:1px solid var(--laton);
+  color:var(--verde); padding:7px 20px; border-radius:100px;
+  font-size:12px; font-weight:700; letter-spacing:1.6px; text-transform:uppercase;
+  margin-bottom:26px; backdrop-filter:blur(6px);
+}
+.hero h1 {
+  font-family:var(--serif); font-size:clamp(46px,7.4vw,92px); font-weight:700;
+  line-height:1.02; letter-spacing:-2.4px; color:var(--verde); margin-bottom:14px;
+}
+.hero-lema {
+  font-family:var(--serif); font-style:italic;
+  font-size:clamp(20px,2.7vw,30px); color:var(--laton); margin-bottom:22px;
+}
+.hero-desc {
+  font-size:17.5px; color:var(--gris); max-width:590px; margin:0 auto 38px;
+  line-height:1.75;
+}
+.hero-btns { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-bottom:56px; }
+
+.btn-lleno {
+  background:var(--verde); color:#fff; border:none; border-radius:100px;
+  padding:16px 38px; font-size:16px; font-weight:600; cursor:pointer;
+  transition:transform .18s, box-shadow .18s, background .18s;
+  box-shadow:0 6px 20px rgba(27,67,50,.22);
+}
+.btn-lleno:hover {
+  background:var(--verde2); transform:translateY(-2px);
+  box-shadow:0 12px 30px rgba(27,67,50,.28);
+}
+.btn-lleno:disabled { opacity:.6; cursor:not-allowed; transform:none; }
+.btn-lleno.ancho { width:100%; }
+.btn-hueco {
+  background:transparent; color:var(--verde); border:1.6px solid var(--verde);
+  border-radius:100px; padding:15px 36px; font-size:16px; font-weight:600;
+  cursor:pointer; text-decoration:none; display:inline-block; transition:all .18s;
+}
+.btn-hueco:hover { background:var(--verde); color:#fff; }
+
+.hero-datos { display:flex; gap:54px; justify-content:center; flex-wrap:wrap; }
+.hero-dato b {
+  display:block; font-family:var(--serif); font-size:34px; font-weight:700;
+  color:var(--verde); line-height:1.1;
+}
+.hero-dato span {
+  font-size:11.5px; color:var(--gris2); text-transform:uppercase;
+  letter-spacing:1.3px; font-weight:600;
+}
+
+/* El horizonte ilustrado */
+.horizonte {
+  position:absolute; left:0; right:0; bottom:0; width:100%;
+  height:clamp(180px,26vw,300px); z-index:1; pointer-events:none;
+}
+.hero-scroll {
+  position:absolute; bottom:22px; left:50%; transform:translateX(-50%);
+  color:var(--verde); font-size:22px; text-decoration:none; z-index:3;
+  animation:flota 2.4s ease-in-out infinite; opacity:.55;
+}
+@keyframes flota { 0%,100%{transform:translate(-50%,0)} 50%{transform:translate(-50%,9px)} }
+
+/* ══════════════════════════════════════════════════════════════════════
+   SECCIONES
+   ══════════════════════════════════════════════════════════════════════ */
+.seccion { padding:104px 44px; position:relative; }
+.seccion.alterna { background:var(--arena); }
+.seccion-cab { max-width:760px; margin:0 auto 54px; text-align:center; }
+.eyebrow {
+  display:inline-block; font-size:11.5px; font-weight:800; letter-spacing:2.4px;
+  text-transform:uppercase; color:var(--laton); margin-bottom:14px;
+}
+.eyebrow.claro { color:var(--laton2); }
+.seccion h2 {
+  font-family:var(--serif); font-size:clamp(30px,4.4vw,46px); font-weight:700;
+  line-height:1.14; letter-spacing:-1.1px; color:var(--verde); margin-bottom:14px;
+}
+.seccion-sub { font-size:17px; color:var(--gris); line-height:1.75; }
+.seccion-sub.claro { color:rgba(255,255,255,.78); }
+.parrafo { font-size:16.5px; color:var(--gris); line-height:1.85; margin-bottom:30px; }
+.centro { text-align:center; margin-top:36px; }
+.cargando { text-align:center; color:var(--gris2); padding:56px 0; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   EL DÍA · la franja oscura que cuenta el oficio
+   Es la sección que convierte «un restaurante más» en «este restaurante».
+   ══════════════════════════════════════════════════════════════════════ */
+.franja-dia {
+  background:
+    radial-gradient(760px 420px at 18% 0%, rgba(64,145,108,.34), transparent 62%),
+    radial-gradient(680px 380px at 84% 100%, rgba(201,162,39,.20), transparent 60%),
+    linear-gradient(160deg, var(--verde) 0%, var(--verde4) 100%);
+  color:#fff;
+}
+.franja-dia h2 { color:#fff; }
+.dia {
+  list-style:none; max-width:1240px; margin:0 auto;
+  display:grid; gap:22px; grid-template-columns:repeat(auto-fit,minmax(206px,1fr));
+}
+.dia li {
+  background:rgba(255,255,255,.055); border:1px solid rgba(255,255,255,.11);
+  border-radius:var(--r); padding:28px 22px;
+  transition:transform .22s, background .22s, border-color .22s;
+}
+.dia li:hover {
+  transform:translateY(-5px); background:rgba(255,255,255,.09);
+  border-color:rgba(224,188,74,.42);
+}
+.dia-hora {
+  display:block; font-family:var(--serif); font-size:14px; font-weight:700;
+  color:var(--laton2); letter-spacing:.4px; margin-bottom:16px;
+}
+.dia-ico { width:44px; height:44px; color:var(--laton2); margin-bottom:14px; display:block; }
+.dia li h3 {
+  font-family:var(--serif); font-size:20px; font-weight:700;
+  margin-bottom:9px; line-height:1.25;
+}
+.dia li p { font-size:14px; color:rgba(255,255,255,.74); line-height:1.7; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   CARTA
+   ══════════════════════════════════════════════════════════════════════ */
+.cat-tabs { display:flex; gap:9px; justify-content:center; flex-wrap:wrap; margin-bottom:52px; }
+.cat-tab {
+  background:#fff; border:1px solid var(--linea); border-radius:100px;
+  padding:9px 21px; font-size:14px; font-weight:600; color:var(--gris);
+  cursor:pointer; transition:all .18s;
+}
+.cat-tab:hover { border-color:var(--verde3); color:var(--verde); }
+.cat-tab.on { background:var(--verde); border-color:var(--verde); color:#fff; }
+
+.carta-cont { max-width:1120px; margin:0 auto; }
+.carta-grupo { margin-bottom:62px; }
+.carta-grupo h3 {
+  font-family:var(--serif); font-size:27px; font-weight:700; color:var(--verde);
+  margin-bottom:26px; display:flex; align-items:center; gap:18px;
+}
+.carta-grupo h3::after {
+  content:""; flex:1; height:1px;
+  background:linear-gradient(90deg, var(--laton), transparent);
+}
+.carta-items { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(430px,1fr)); }
+
+.plato {
+  display:flex; align-items:flex-start; gap:16px; padding:18px 20px;
+  background:#fff; border:1px solid var(--linea); border-radius:var(--r);
+  transition:transform .18s, box-shadow .18s, border-color .18s;
+}
+.plato:hover {
+  transform:translateY(-3px); box-shadow:var(--sombra-alta); border-color:var(--laton);
+}
+/* El emoji dentro de una medalla: aislado del texto y sobre fondo cálido,
+   deja de leerse como emoji suelto y pasa a leerse como ilustración. */
+.plato-em {
+  flex:0 0 auto; width:52px; height:52px; border-radius:50%;
+  background:linear-gradient(145deg, var(--arena), var(--arena2));
+  border:1px solid var(--linea);
+  display:grid; place-items:center; font-size:26px; line-height:1;
+}
+.plato-cuerpo { flex:1; min-width:0; }
+.plato-nom {
+  font-family:var(--serif); font-size:18.5px; font-weight:700; color:var(--tinta);
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap; line-height:1.3;
+}
+.etiqueta-dest {
+  background:var(--laton); color:#fff; font-family:var(--sans);
+  font-size:9.5px; font-weight:800; letter-spacing:1.2px; text-transform:uppercase;
+  padding:3px 9px; border-radius:100px;
+}
+.plato-desc { font-size:14px; color:var(--gris); margin-top:5px; line-height:1.6; }
+.plato-puntos {
+  flex:1; border-bottom:1.5px dotted var(--linea); margin:0 4px 7px; min-width:14px;
+  align-self:flex-end;
+}
+.plato-precio {
+  font-family:var(--serif); font-size:19px; font-weight:700; color:var(--verde);
+  white-space:nowrap; align-self:center;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   DE DÓNDE VIENE
+   ══════════════════════════════════════════════════════════════════════ */
+.origen { background:var(--arena); }
+.origen-grid {
+  max-width:1180px; margin:0 auto;
+  display:grid; gap:20px; grid-template-columns:repeat(auto-fit,minmax(238px,1fr));
+}
+.origen-card {
+  background:#fff; border:1px solid var(--linea); border-radius:var(--r);
+  padding:30px 24px; transition:transform .2s, box-shadow .2s;
+}
+.origen-card:hover { transform:translateY(-4px); box-shadow:var(--sombra-alta); }
+.origen-ico { width:46px; height:46px; color:var(--verde3); margin-bottom:16px; display:block; }
+.origen-card h3 {
+  font-family:var(--serif); font-size:20px; font-weight:700;
+  color:var(--verde); margin-bottom:9px;
+}
+.origen-card p { font-size:14.5px; color:var(--gris); line-height:1.7; margin-bottom:16px; }
+.origen-lugar {
+  font-size:10.5px; font-weight:800; letter-spacing:1.4px; text-transform:uppercase;
+  color:var(--laton); border-top:1px solid var(--linea); padding-top:13px; display:block;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   NOSOTROS
+   ══════════════════════════════════════════════════════════════════════ */
+.dos-col {
+  max-width:1180px; margin:0 auto; display:grid; gap:64px;
+  grid-template-columns:1.15fr .85fr; align-items:start;
+}
+.dos-col .eyebrow, .dos-col h2 { text-align:left; }
+.valores { display:grid; gap:26px; }
+.valor { display:grid; grid-template-columns:auto 1fr; gap:18px; align-items:start; }
+.valor-ico { width:40px; height:40px; color:var(--laton); grid-row:span 2; }
+.valor h3 { font-family:var(--serif); font-size:19px; font-weight:700; color:var(--verde); }
+.valor p { font-size:14.5px; color:var(--gris); line-height:1.7; grid-column:2; }
+
+.tarjeta-horario {
+  background:var(--verde); color:#fff; border-radius:20px; padding:36px 32px;
+  box-shadow:var(--sombra-alta); position:sticky; top:100px;
+}
+.th-ico { width:38px; height:38px; color:var(--laton2); margin-bottom:16px; display:block; }
+.tarjeta-horario h3 { font-family:var(--serif); font-size:23px; margin-bottom:18px; }
+.tarjeta-horario pre {
+  font-family:var(--sans); font-size:14.5px; line-height:2.1;
+  color:rgba(255,255,255,.86); white-space:pre-wrap;
+}
+.estado-abierto {
+  margin-top:22px; padding-top:20px; border-top:1px solid rgba(255,255,255,.16);
+  font-size:14px; font-weight:700;
+}
+.estado-abierto.abierto { color:#86EFAC; }
+.estado-abierto.cerrado { color:rgba(255,255,255,.5); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   RESERVA
+   ══════════════════════════════════════════════════════════════════════ */
+.reserva-sec {
+  background:
+    radial-gradient(700px 400px at 12% 0%, rgba(64,145,108,.30), transparent 60%),
+    linear-gradient(150deg, var(--verde) 0%, var(--verde4) 100%);
+  color:#fff;
+}
+.reserva-caja {
+  max-width:1120px; margin:0 auto; display:grid; gap:60px;
+  grid-template-columns:.9fr 1.1fr; align-items:start;
+}
+.reserva-info h2 { color:#fff; text-align:left; }
+.reserva-info p { color:rgba(255,255,255,.76); font-size:16px; line-height:1.8; margin-bottom:30px; }
+.reserva-contacto { display:grid; gap:13px; }
+.reserva-contacto a, .reserva-contacto span {
+  color:var(--laton2); text-decoration:none; font-size:15px; font-weight:600;
+}
+.reserva-contacto a:hover { color:#fff; }
+
+.reserva-form { background:#fff; border-radius:20px; padding:36px; box-shadow:var(--sombra-alta); }
+.campo { margin-bottom:17px; }
+.fila { display:flex; gap:14px; flex-wrap:wrap; }
+.fila .campo { flex:1; min-width:132px; }
+label {
+  display:block; font-size:12px; font-weight:700; color:var(--verde);
+  margin-bottom:6px; text-transform:uppercase; letter-spacing:.7px;
+}
+input, select, textarea {
+  width:100%; padding:12px 15px; border:1.5px solid var(--linea); border-radius:11px;
+  background:var(--crema); color:var(--tinta); outline:none;
+  transition:border-color .18s, box-shadow .18s, background .18s;
+}
+input:focus, select:focus, textarea:focus {
+  border-color:var(--verde3); background:#fff; box-shadow:0 0 0 4px rgba(64,145,108,.13);
+}
+textarea { resize:vertical; }
+.form-msg { margin-top:13px; font-size:14px; line-height:1.6; }
+.form-msg.ok  { color:var(--verde2); font-weight:600; }
+.form-msg.err { color:#B91C1C; font-weight:600; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   OPINIONES
+   ══════════════════════════════════════════════════════════════════════ */
+.calif-resumen { display:flex; align-items:center; gap:18px; justify-content:center; margin-top:22px; }
+.calif-num {
+  font-family:var(--serif); font-size:52px; font-weight:700; color:var(--verde); line-height:1;
+}
+.estrellas { color:var(--laton); font-size:21px; letter-spacing:3px; }
+.calif-total { font-size:13px; color:var(--gris2); margin-top:3px; }
+
+.resenas {
+  max-width:1180px; margin:0 auto;
+  display:grid; gap:20px; grid-template-columns:repeat(auto-fit,minmax(310px,1fr));
+}
+.resena {
+  background:#fff; border:1px solid var(--linea); border-radius:var(--r);
+  padding:28px 26px; position:relative; transition:transform .2s, box-shadow .2s;
+}
+.resena::before {
+  content:"\201C"; position:absolute; top:2px; right:20px;
+  font-family:var(--serif); font-size:82px; color:var(--arena2); line-height:1;
+  pointer-events:none;
+}
+.resena:hover { transform:translateY(-4px); box-shadow:var(--sombra-alta); }
+.resena-est { color:var(--laton); letter-spacing:2.5px; margin-bottom:13px; position:relative; }
+.resena-txt {
+  font-family:var(--serif); font-size:16.5px; line-height:1.75; color:var(--tinta);
+  margin-bottom:18px; position:relative;
+}
+.resena-autor { font-size:13.5px; font-weight:700; color:var(--verde); }
+.resena-fecha { font-size:11.5px; color:var(--gris2); margin-top:2px; }
+.resena-resp {
+  background:var(--arena); border-left:3px solid var(--laton);
+  border-radius:0 9px 9px 0; padding:13px 15px; margin-top:16px;
+  font-size:13.5px; color:var(--gris); line-height:1.65;
+}
+.resena-resp b { color:var(--verde); }
+.sin-resenas { text-align:center; color:var(--gris2); padding:44px 0; grid-column:1/-1; line-height:1.9; }
+
+.estrellas-sel { display:flex; gap:5px; justify-content:center; margin-bottom:22px; }
+.estrella {
+  background:none; border:none; font-size:34px; color:var(--linea);
+  cursor:pointer; transition:color .14s, transform .14s; line-height:1;
+}
+.estrella:hover { transform:scale(1.14); }
+.estrella.on { color:var(--laton); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   VISÍTANOS
+   ══════════════════════════════════════════════════════════════════════ */
+.contacto-lista { display:grid; gap:22px; margin-bottom:30px; }
+.contacto-item { display:flex; gap:16px; align-items:flex-start; }
+.contacto-ico {
+  width:44px; height:44px; flex:0 0 auto; border-radius:50%;
+  background:var(--arena); display:grid; place-items:center; font-size:19px;
+}
+.contacto-item b {
+  display:block; font-size:11.5px; text-transform:uppercase; letter-spacing:1.2px;
+  color:var(--gris2); margin-bottom:3px; font-weight:800;
+}
+.contacto-item a { color:var(--verde); text-decoration:none; font-weight:600; }
+.contacto-item a:hover { color:var(--laton); }
+.redes { display:flex; gap:11px; }
+.red {
+  width:44px; height:44px; border-radius:50%; background:var(--verde); color:#fff;
+  display:grid; place-items:center; text-decoration:none; font-size:19px;
+  transition:transform .18s, background .18s;
+}
+.red:hover { background:var(--laton); transform:translateY(-3px); }
+.mapa-caja {
+  background:var(--arena); border-radius:20px; min-height:330px;
+  display:grid; place-items:center; text-align:center; color:var(--gris);
+  overflow:hidden; border:1px solid var(--linea);
+}
+.mapa-caja b { color:var(--verde); font-family:var(--serif); font-size:19px; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   PIE
+   ══════════════════════════════════════════════════════════════════════ */
+.pie { background:var(--verde4); color:rgba(255,255,255,.62); padding:56px 44px 26px; }
+.pie-cont {
+  max-width:1180px; margin:0 auto; display:flex; justify-content:space-between;
+  gap:34px; flex-wrap:wrap; padding-bottom:30px;
+  border-bottom:1px solid rgba(255,255,255,.11);
+}
+.pie .marca-txt { color:#fff; font-size:21px; }
+.pie-lema {
+  font-family:var(--serif); font-style:italic; color:var(--laton2);
+  font-size:14.5px; margin-top:5px;
+}
+.pie-links { display:flex; gap:26px; flex-wrap:wrap; align-items:center; }
+.pie-links a { color:rgba(255,255,255,.62); text-decoration:none; font-size:14px; }
+.pie-links a:hover { color:var(--laton2); }
+.pie-admin {
+  border:1px solid rgba(255,255,255,.2); border-radius:100px;
+  padding:7px 17px; font-size:13px !important;
+}
+.pie-admin:hover { border-color:var(--laton2); }
+.pie-legal { max-width:1180px; margin:22px auto 0; font-size:12.5px; text-align:center; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   MODAL Y AVISO
+   ══════════════════════════════════════════════════════════════════════ */
+.modal {
+  position:fixed; inset:0; background:rgba(15,42,32,.62); z-index:200;
+  display:none; align-items:center; justify-content:center; padding:22px;
+  backdrop-filter:blur(4px);
+}
+.modal.on { display:flex; }
+.modal-caja {
+  background:#fff; border-radius:20px; width:100%; max-width:520px;
+  max-height:90vh; overflow-y:auto; box-shadow:var(--sombra-alta);
+}
+.modal-cab {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:24px 28px; border-bottom:1px solid var(--linea);
+}
+.modal-cab h3 { font-family:var(--serif); font-size:22px; color:var(--verde); }
+.modal-cab button {
+  background:none; border:none; font-size:29px; color:var(--gris2);
+  cursor:pointer; line-height:1;
+}
+.modal-cab button:hover { color:var(--tinta); }
+.modal-cuerpo { padding:28px; }
+
+#aviso {
+  position:fixed; bottom:26px; left:50%; transform:translate(-50%,140%);
+  background:var(--verde4); color:#fff; padding:15px 28px; border-radius:100px;
+  font-size:14.5px; font-weight:600; z-index:300; box-shadow:var(--sombra-alta);
+  transition:transform .3s cubic-bezier(.22,1,.36,1); max-width:calc(100vw - 44px);
+  text-align:center;
+}
+#aviso.on { transform:translate(-50%,0); }
+#aviso.ok  { background:var(--verde2); }
+#aviso.err { background:#991B1B; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   ADAPTACIÓN
+   ══════════════════════════════════════════════════════════════════════ */
+@media (max-width:1000px) {
+  .dos-col, .reserva-caja { grid-template-columns:1fr; gap:40px; }
+  .tarjeta-horario { position:static; }
+}
+@media (max-width:860px) {
+  .nav { padding:14px 20px; gap:12px; }
+  .nav.pegado { padding:10px 20px; }
+  .nav-links {
+    position:fixed; top:64px; left:0; right:0; flex-direction:column; gap:0;
+    background:var(--crema); padding:0 20px; max-height:0; overflow:hidden;
+    transition:max-height .3s, padding .3s; box-shadow:var(--sombra);
+  }
+  .nav-links.abierto { max-height:340px; padding:12px 20px 20px; }
+  .nav-links a { padding:13px 0; border-bottom:1px solid var(--linea); }
+  .btn-reserva { display:none; }
+  .btn-ingresar span { display:none; }
+  .btn-ingresar { padding:9px 11px; }
+  .nav-burger { display:block; }
+  .seccion { padding:70px 20px; }
+  .hero { padding:110px 20px 220px; }
+  .hero-datos { gap:32px; }
+  .carta-items { grid-template-columns:1fr; }
+  .plato { padding:15px 16px; gap:13px; }
+  .plato-em { width:44px; height:44px; font-size:22px; }
+  .plato-puntos { display:none; }
+  .reserva-form { padding:24px; }
+  .pie { padding:44px 20px 22px; }
+  .pie-cont { flex-direction:column; }
+}
+@media (prefers-reduced-motion:reduce) {
+  * { animation:none !important; transition:none !important; }
+  html { scroll-behavior:auto; }
+}
+
+/* ── Pantallas de poca altura ────────────────────────────────────────
+   Un portátil de 1366×768 deja unos 640 px útiles. Con el ritmo vertical
+   de escritorio, la fachada ilustrada —que es lo que da lugar— queda por
+   debajo del pliegue y nadie la ve nunca. Aquí se comprime el aire para
+   que el horizonte entre en la primera pantalla.
+   ──────────────────────────────────────────────────────────────────── */
+@media (max-height:880px) and (min-width:861px) {
+  .hero { padding:104px 24px clamp(150px,19vw,215px); }
+  .horizonte { height:clamp(150px,19vw,215px); }
+  .hero h1 { font-size:clamp(40px,5.6vw,68px); letter-spacing:-1.8px; }
+  .hero-lema { font-size:clamp(18px,2.1vw,24px); margin-bottom:16px; }
+  .hero-desc { font-size:16px; margin-bottom:26px; line-height:1.7; }
+  .hero-sello { margin-bottom:18px; }
+  .hero-btns { margin-bottom:32px; }
+  .btn-lleno, .btn-hueco { padding:13px 30px; font-size:15px; }
+  .hero-dato b { font-size:27px; }
+  .hero-datos { gap:42px; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   ACCESO DEL PERSONAL
+   Sobrio a propósito. Esta caja no vende nada: la usa alguien que llega de
+   afán y quiere entrar en dos segundos.
+   ══════════════════════════════════════════════════════════════════════ */
+.form-login { display:block; }
+.login-nota {
+  font-size:13.5px; color:var(--gris); line-height:1.65; margin-bottom:20px;
+  padding-bottom:16px; border-bottom:1px solid var(--linea);
+}
+.clave-caja { position:relative; display:flex; align-items:center; }
+.clave-caja input { padding-right:74px; }
+.ver-clave {
+  position:absolute; right:8px; background:none; border:none;
+  color:var(--verde2); font-size:12.5px; font-weight:700; cursor:pointer;
+  padding:6px 9px; border-radius:8px; text-transform:uppercase; letter-spacing:.6px;
+}
+.ver-clave:hover { background:var(--arena); }
+.form-login .btn-lleno { margin-top:8px; }
+
+/* Selección de sede cuando el usuario trabaja en más de un local. */
+.sedes { display:grid; gap:10px; }
+.sede-op {
+  display:block; width:100%; text-align:left; cursor:pointer;
+  background:var(--crema); border:1.5px solid var(--linea); border-radius:12px;
+  padding:15px 18px; transition:all .16s;
+}
+.sede-op:hover { border-color:var(--verde3); background:#fff; transform:translateX(3px); }
+.sede-op:disabled { opacity:.5; cursor:wait; }
+.sede-op b { display:block; font-family:var(--serif); font-size:17px; color:var(--verde); }
+.sede-op span { font-size:12.5px; color:var(--gris); text-transform:capitalize; }
+
+/* El acceso del pie es un botón, pero debe verse igual que los enlaces. */
+button.pie-admin {
+  background:none; color:rgba(255,255,255,.62); font-family:inherit;
+  cursor:pointer; border:1px solid rgba(255,255,255,.2);
+}
+button.pie-admin:hover { border-color:var(--laton2); color:var(--laton2); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   BOTÓN FLOTANTE DE WHATSAPP
+   Es el canal por el que de verdad escribe la gente en Colombia: un
+   formulario de contacto se responde al día siguiente; un WhatsApp, en
+   minutos. Se ancla abajo a la derecha, donde el pulgar ya lo busca.
+   ══════════════════════════════════════════════════════════════════════ */
+.wa-flota {
+  position:fixed; right:22px; bottom:22px; z-index:150;
+  display:flex; align-items:center; gap:10px;
+  background:#25D366; color:#fff; text-decoration:none;
+  padding:13px 20px 13px 15px; border-radius:100px;
+  box-shadow:0 6px 20px rgba(37,211,102,.38), 0 2px 6px rgba(0,0,0,.18);
+  font-weight:700; font-size:14.5px;
+  transition:transform .18s, box-shadow .18s;
+}
+.wa-flota:hover {
+  transform:translateY(-3px);
+  box-shadow:0 12px 30px rgba(37,211,102,.46), 0 3px 8px rgba(0,0,0,.2);
+}
+.wa-ico { width:28px; height:28px; flex:0 0 auto; }
+.wa-flota[hidden] { display:none; }
+
+/* ── Enlace para gestionar una reserva existente ─────────────────────── */
+.rv-ya {
+  margin-top:16px; padding-top:15px; border-top:1px solid var(--linea);
+  font-size:13.5px; color:var(--gris); text-align:center;
+}
+.rv-ya button {
+  background:none; border:none; color:var(--verde2); font-weight:700;
+  cursor:pointer; font-size:13.5px; text-decoration:underline;
+  text-underline-offset:3px; padding:0 2px;
+}
+.rv-ya button:hover { color:var(--laton); }
+
+/* ── Ficha de la reserva encontrada ──────────────────────────────────── */
+.mr-ficha {
+  display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+  background:var(--arena); border-radius:12px; padding:18px;
+}
+.mr-cod {
+  font-family:var(--serif); font-size:26px; font-weight:700; color:var(--verde);
+  letter-spacing:1px; background:#fff; border-radius:10px; padding:10px 16px;
+  border:1px dashed var(--laton);
+}
+.mr-datos { flex:1; min-width:170px; font-size:14px; color:var(--gris); }
+.mr-datos b {
+  display:block; font-family:var(--serif); font-size:18px;
+  color:var(--tinta); margin-bottom:3px;
+}
+/* Solo la PRIMERA letra. `capitalize` a secas produce «Domingo, 20 De
+   Septiembre A Las 19:00»: en español los meses y las preposiciones van en
+   minúscula. */
+.mr-datos div::first-letter { text-transform:uppercase; }
+.mr-estado {
+  font-size:11px; font-weight:800; letter-spacing:1.1px; text-transform:uppercase;
+  padding:5px 12px; border-radius:100px; background:#DBEAFE; color:#1E40AF;
+}
+.mr-estado.confirmada { background:#DCFCE7; color:#166534; }
+.mr-estado.cancelada  { background:#FEE2E2; color:#991B1B; }
+.mr-estado.sentada    { background:var(--linea); color:var(--gris); }
+
+.btn-cancelar {
+  background:#fff; color:#B91C1C; border:1.6px solid #FCA5A5;
+  border-radius:100px; padding:14px 30px; font-size:15px; font-weight:700;
+  cursor:pointer; transition:all .18s; margin-top:6px;
+}
+.btn-cancelar:hover { background:#B91C1C; color:#fff; border-color:#B91C1C; }
+.btn-cancelar:disabled { opacity:.6; cursor:wait; }
+.nota-mini {
+  font-size:12.5px; color:var(--gris2); text-align:center;
+  margin-top:12px; line-height:1.6;
+}
+
+@media (max-width:640px) {
+  .wa-flota { right:14px; bottom:14px; padding:12px; }
+  .wa-txt { display:none; }
+}

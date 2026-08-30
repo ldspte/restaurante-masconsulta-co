@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231B4332'/%3E%3Ctext x='16' y='23' font-size='19' text-anchor='middle'%3E%F0%9F%8D%B2%3C/text%3E%3C/svg%3E">
+<title>Cafetería · Sistema de Gestión</title>
+<link rel="stylesheet" href="/estilos.css?v=2.3.0">
+</head>
+<body>
+
+<!-- ══════════════════════ INGRESO ══════════════════════ -->
+<div id="login">
+  <div class="login-card">
+    <div class="login-logo">☕</div>
+    <h1>Cafetería</h1>
+    <div class="sub">Sistema de gestión · Caja, inventario y contabilidad</div>
+
+    <form data-act="ingresar">
+      <div class="campo">
+        <label for="lg-email">Correo</label>
+        <input type="email" id="lg-email" autocomplete="username" placeholder="usuario@qmspm.com">
+      </div>
+      <div class="campo">
+        <label for="lg-pass">Contraseña</label>
+        <input type="password" id="lg-pass" autocomplete="current-password" placeholder="••••••••">
+      </div>
+      <button type="submit" class="btn btn-p" id="lg-btn" style="width:100%;padding:10px">Ingresar</button>
+    </form>
+
+    <div class="demo-box">
+      <b>Usuarios de demostración</b>
+      <span class="demo-u" data-act="usarDemo" data-args="manager%40qmspm.com|Manager123*">manager@qmspm.com</span> · Administrador<br>
+      <span class="demo-u" data-act="usarDemo" data-args="contador%40luispardo.co|Contador123*">contador@luispardo.co</span> · Supervisor<br>
+      <span class="demo-u" data-act="usarDemo" data-args="cajero%40qmspm.com|Cajero123*">cajero@qmspm.com</span> · Cajero<br>
+      <span class="demo-u" data-act="usarDemo" data-args="calidad%40luispardo.co|Calidad123*">calidad@luispardo.co</span> · Calidad / Bodega
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ APLICACIÓN ══════════════════════ -->
+<div id="app">
+  <aside class="sb">
+    <div class="sb-top">
+      <div class="marca">☕ Cafetería</div>
+      <div class="sede" id="sb-sede"></div>
+    </div>
+    <nav class="sb-nav" id="sb-nav"></nav>
+    <div class="sb-foot">
+      <div class="u" id="sb-user"></div>
+      <div class="r" id="sb-rol"></div>
+      <button data-act="cerrarSesion">Cerrar sesión</button>
+    </div>
+  </aside>
+
+  <main id="paginas"></main>
+</div>
+
+<!-- ══════════════════════ MODAL ══════════════════════ -->
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-h">
+      <h3 id="modal-t"></h3>
+      <button data-act="modalCerrar" aria-label="Cerrar">&times;</button>
+    </div>
+    <div class="modal-b" id="modal-b"></div>
+    <div class="modal-f">
+      <button class="btn" data-act="modalCerrar">Cancelar</button>
+      <button class="btn btn-p" id="modal-ok" data-act="modalAceptar">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     ORDEN DE CARGA. csp_delegate primero: define esc() y arg(), que el
+     resto usa. app.js después: publica api(), nav() y crearPagina().
+     Los módulos al final, en cualquier orden entre sí: no se conocen.
+
+     El parámetro ?v= es control de caché. Al modificar un archivo hay que
+     subirlo, o el navegador seguirá sirviendo la versión anterior.
+     ══════════════════════════════════════════════════════════════════ -->
+<script src="/csp_delegate.js?v=1.0.0"></script>
+<script src="/app.js?v=1.1.0"></script>
+<script src="/caf_anexos.js?v=1.0.0"></script>
+<script src="/caf_dashboard.js?v=1.1.0"></script>
+<script src="/caf_caja.js?v=1.7.0"></script>
+<script src="/caf_productos.js?v=1.1.0"></script>
+<script src="/caf_inventario.js?v=1.1.0"></script>
+<script src="/caf_perdidas.js?v=1.1.0"></script>
+<script src="/caf_contabilidad.js?v=1.1.0"></script>
+<script src="/caf_salon.js?v=1.6.0"></script>
+<script src="/caf_cocina.js?v=1.3.0"></script>
+<script src="/caf_escandallo.js?v=1.1.0"></script>
+<script src="/caf_comandas.js?v=1.8.0"></script>
+<script src="/caf_facturacion.js?v=1.3.0"></script>
+<script src="/caf_produccion.js?v=1.1.0"></script>
+<script src="/caf_compras.js?v=1.2.0"></script>
+<script src="/caf_consumo.js?v=1.1.0"></script>
+<script src="/caf_propinas.js?v=1.1.0"></script>
+<script src="/caf_rrhh.js?v=1.7.0"></script>
+<script src="/caf_sgsst.js?v=1.4.0"></script>
+<script src="/caf_web.js?v=1.1.0"></script>
+<script src="/caf_sobrantes.js?v=1.1.0"></script>
+<script src="/caf_activos.js?v=1.2.0"></script>
+<script src="/caf_accesos.js?v=1.1.0"></script>
+</body>
+</html>

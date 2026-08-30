@@ -1,0 +1,51 @@
+# ══════════════════════════════════════════════════════════════════════
+#  restaurante.masconsulta.co
+#  Passenger sirve la aplicación; Apache solo cuida lo que no debe salir.
+# ══════════════════════════════════════════════════════════════════════
+
+# El código fuente no se sirve nunca. Un .py entregado como texto revelaría
+# la lógica y, peor, las consultas y nombres de tabla.
+<FilesMatch "\.(py|pyc|pyo|env|db|sqlite3?|log|md|bat|sh)$">
+    Require all denied
+</FilesMatch>
+
+# Los datos del negocio y los anexos viven aquí: no se alcanzan por URL.
+# Los archivos se entregan por /api/anexos/{id}/descargar, que verifica
+# primero que el anexo pertenezca a la sede de quien pregunta.
+RedirectMatch 404 ^/Backend/data/
+RedirectMatch 404 ^/Backend/__pycache__/
+RedirectMatch 404 ^/tests/
+RedirectMatch 404 ^/docs/
+
+# ── CACHÉ ────────────────────────────────────────────────────────────
+# Apache tambien sirve estaticos en algunas rutas, asi que la regla se repite
+# aqui. El HTML NUNCA se cachea: es quien dice que version de cada archivo
+# pedir, y si el navegador se lo guarda sigue pidiendo las versiones viejas
+# aunque el despliegue ya traiga la correccion. El `?v=` deja de servir.
+<IfModule mod_headers.c>
+    <FilesMatch "\.(html|htm)$">
+        Header always set Cache-Control "no-cache, must-revalidate"
+    </FilesMatch>
+    # Los estaticos SI se cachean: llevan ?v= y cambian de direccion al cambiar.
+    <FilesMatch "\.(css|js|svg|png|jpg|jpeg|webp|woff2?)$">
+        Header set Cache-Control "public, max-age=604800"
+    </FilesMatch>
+</IfModule>
+
+# Nada de listar carpetas.
+Options -Indexes
+
+# HTTPS obligatorio: las credenciales y el token no viajan en claro.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTPS} !=on
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+</IfModule>
+
+# Compresión de lo que se repite en cada visita.
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/plain
+    AddOutputFilterByType DEFLATE application/javascript application/json
+    AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>

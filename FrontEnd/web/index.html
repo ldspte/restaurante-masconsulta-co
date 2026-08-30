@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231B4332'/%3E%3Ctext x='16' y='23' font-size='19' text-anchor='middle'%3E%F0%9F%8D%B2%3C/text%3E%3C/svg%3E">
+<title>Restaurante Central · Cocina de siempre, producto de hoy</title>
+<meta name="description" content="Panadería propia desde las cuatro de la mañana, jugos exprimidos al momento y una carta corta que cambia con lo que llega fresco del mercado.">
+<link rel="stylesheet" href="/web/web.css?v=2.1.0">
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     BIBLIOTECA DE ILUSTRACIÓN
+     Todo el arte de la página es SVG en línea. Ni una imagen externa: el sitio
+     se sirve entero desde su propio servidor, funciona sin internet y respeta
+     la política de contenido `default-src 'self'` sin excepciones.
+     Un restaurante de barrio tampoco tiene un banco de fotos profesionales.
+     ══════════════════════════════════════════════════════════════════ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="ico-pan" viewBox="0 0 64 64">
+      <path d="M10 38c0-11 9-20 22-20s22 9 22 20c0 5-3 8-8 8H18c-5 0-8-3-8-8z"
+            fill="currentColor" opacity=".18"/>
+      <path d="M10 38c0-11 9-20 22-20s22 9 22 20c0 5-3 8-8 8H18c-5 0-8-3-8-8z"
+            fill="none" stroke="currentColor" stroke-width="2.5"/>
+      <path d="M22 26c2 4 2 8 0 12M32 24c2 5 2 10 0 15M42 26c2 4 2 8 0 12"
+            fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="ico-taza" viewBox="0 0 64 64">
+      <path d="M14 26h30v14c0 7-6 12-13 12h-4c-7 0-13-5-13-12V26z"
+            fill="currentColor" opacity=".18"/>
+      <path d="M14 26h30v14c0 7-6 12-13 12h-4c-7 0-13-5-13-12V26z"
+            fill="none" stroke="currentColor" stroke-width="2.5"/>
+      <path d="M44 30h4a6 6 0 0 1 0 12h-4" fill="none" stroke="currentColor" stroke-width="2.5"/>
+      <path d="M24 8c-3 4 3 6 0 10M34 8c-3 4 3 6 0 10" fill="none"
+            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity=".55"/>
+    </symbol>
+    <symbol id="ico-naranja" viewBox="0 0 64 64">
+      <circle cx="32" cy="36" r="20" fill="currentColor" opacity=".18"/>
+      <circle cx="32" cy="36" r="20" fill="none" stroke="currentColor" stroke-width="2.5"/>
+      <path d="M32 16v40M12 36h40M18 22l28 28M46 22L18 50" fill="none"
+            stroke="currentColor" stroke-width="1.5" opacity=".45"/>
+      <path d="M32 16c0-5 4-8 8-8-1 5-3 8-8 8z" fill="currentColor" opacity=".5"/>
+    </symbol>
+    <symbol id="ico-olla" viewBox="0 0 64 64">
+      <path d="M12 28h40v16c0 6-5 10-11 10H23c-6 0-11-4-11-10V28z"
+            fill="currentColor" opacity=".18"/>
+      <path d="M12 28h40v16c0 6-5 10-11 10H23c-6 0-11-4-11-10V28z"
+            fill="none" stroke="currentColor" stroke-width="2.5"/>
+      <path d="M8 28h48M6 32h6M52 32h6" fill="none" stroke="currentColor"
+            stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M24 10c-3 4 3 6 0 10M40 10c-3 4 3 6 0 10" fill="none"
+            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity=".55"/>
+    </symbol>
+    <symbol id="ico-plato" viewBox="0 0 64 64">
+      <circle cx="32" cy="32" r="22" fill="currentColor" opacity=".14"/>
+      <circle cx="32" cy="32" r="22" fill="none" stroke="currentColor" stroke-width="2.5"/>
+      <circle cx="32" cy="32" r="13" fill="none" stroke="currentColor"
+              stroke-width="1.5" opacity=".55"/>
+    </symbol>
+    <symbol id="ico-reloj" viewBox="0 0 64 64">
+      <circle cx="32" cy="34" r="22" fill="currentColor" opacity=".14"/>
+      <circle cx="32" cy="34" r="22" fill="none" stroke="currentColor" stroke-width="2.5"/>
+      <path d="M32 20v14l10 6" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round"/>
+    </symbol>
+    <symbol id="ico-mano" viewBox="0 0 64 64">
+      <path d="M20 34V16a4 4 0 0 1 8 0v14M28 30V12a4 4 0 0 1 8 0v18M36 32V18a4 4 0 0 1 8 0v20"
+            fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M44 28c4-2 8 0 8 5 0 8-3 21-13 21h-6c-8 0-13-6-13-14V28"
+            fill="currentColor" opacity=".16"/>
+      <path d="M44 28c4-2 8 0 8 5 0 8-3 21-13 21h-6c-8 0-13-6-13-14V28"
+            fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="ico-hoja" viewBox="0 0 64 64">
+      <path d="M50 12C26 12 12 24 12 42c0 4 1 8 3 10 8-18 18-26 30-30-10 6-18 14-24 30 2 1 5 2 9 2 18 0 26-18 20-42z"
+            fill="currentColor" opacity=".2"/>
+      <path d="M50 12C26 12 12 24 12 42c0 4 1 8 3 10 8-18 18-26 30-30-10 6-18 14-24 30 2 1 5 2 9 2 18 0 26-18 20-42z"
+            fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="ico-wa" viewBox="0 0 32 32">
+      <path d="M16 3C8.8 3 3 8.8 3 16c0 2.3.6 4.5 1.7 6.4L3 29l6.8-1.8c1.9 1 4 1.6 6.2 1.6 7.2 0 13-5.8 13-13S23.2 3 16 3z"
+            fill="currentColor"/>
+      <path d="M12.2 9.6c-.3-.6-.5-.6-.8-.6h-.7c-.2 0-.6.1-1 .5s-1.3 1.3-1.3 3.1 1.3 3.6 1.5 3.8c.2.2 2.6 4.1 6.4 5.6 3.1 1.2 3.8 1 4.5.9.7-.1 2.2-.9 2.5-1.8s.3-1.6.2-1.8c-.1-.2-.4-.3-.8-.5s-2.2-1.1-2.6-1.2c-.3-.1-.6-.2-.8.2s-.9 1.2-1.1 1.4c-.2.2-.4.3-.8.1s-1.6-.6-3-1.9c-1.1-1-1.9-2.2-2.1-2.6s0-.6.2-.8c.2-.2.4-.4.6-.7.2-.2.2-.4.4-.7s.1-.5 0-.7c-.1-.2-.8-2-1.1-2.7z"
+            fill="#fff"/>
+    </symbol>
+    <symbol id="ico-llave" viewBox="0 0 64 64">
+      <path d="M40 14a12 12 0 1 0 0 24 12 12 0 0 0 0-24zm0 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10z"
+            fill="currentColor"/>
+      <path d="M31 33 12 52M18 46l5 5M24 40l5 5" fill="none" stroke="currentColor"
+            stroke-width="3.4" stroke-linecap="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ══════════════ NAVEGACIÓN ══════════════ -->
+<header class="nav" id="nav">
+  <a href="#inicio" class="marca">
+    <svg class="marca-ico" viewBox="0 0 64 64" aria-hidden="true">
+      <path d="M16 10v20a6 6 0 0 0 12 0V10M22 10v20M42 10c-4 0-7 6-7 13s3 9 7 9"
+            fill="none" stroke="currentColor" stroke-width="4"
+            stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M22 30v24M42 32v22" fill="none" stroke="currentColor"
+            stroke-width="4" stroke-linecap="round"/>
+    </svg>
+    <span class="marca-txt" id="marca-nombre">Restaurante</span>
+  </a>
+  <nav class="nav-links">
+    <a href="#carta">Carta</a>
+    <a href="#el-dia">El día</a>
+    <a href="#nosotros">Nosotros</a>
+    <a href="#opiniones">Opiniones</a>
+    <a href="#visitanos">Visítanos</a>
+  </nav>
+  <button class="btn-reserva" data-act="irReserva">Reservar mesa</button>
+  <!-- Acceso del personal. Va discreto y a la derecha del todo: es una puerta
+       de servicio, no una llamada a la acción. El cliente no debería tropezar
+       con ella, pero el mesero que llega a las seis de la mañana sí tiene que
+       encontrarla sin buscar. -->
+  <button class="btn-ingresar" data-act="abrirLogin" title="Acceso del personal">
+    <svg class="bi-ico" aria-hidden="true"><use href="#ico-llave"/></svg>
+    <span>Ingresar</span>
+  </button>
+  <button class="nav-burger" data-act="alternarMenu" aria-label="Menú">☰</button>
+</header>
+
+<!-- ══════════════ PORTADA ══════════════ -->
+<section class="hero" id="inicio">
+  <div class="hero-fondo"></div>
+  <div class="hero-cont">
+    <div class="hero-sello" id="hero-sello"></div>
+    <h1 id="hero-titulo">Restaurante Central</h1>
+    <p class="hero-lema" id="hero-lema">Cocina de siempre, con producto de hoy</p>
+    <p class="hero-desc" id="hero-desc"></p>
+    <div class="hero-btns">
+      <button class="btn-lleno" data-act="irReserva">Reservar una mesa</button>
+      <a class="btn-hueco" href="#carta">Ver la carta</a>
+    </div>
+    <div class="hero-datos" id="hero-datos"></div>
+  </div>
+
+  <!-- El horizonte: los cerros de Bogotá y la fachada con las luces prendidas
+       a las cuatro de la mañana. Va abajo y no detrás del texto, para que la
+       ilustración dé lugar sin pelear con la lectura. -->
+  <svg class="horizonte" viewBox="0 0 1440 280" preserveAspectRatio="xMidYMax slice"
+       aria-hidden="true">
+    <defs>
+      <linearGradient id="gLejos" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#C4D3C8"/><stop offset="100%" stop-color="#DCE6DD"/>
+      </linearGradient>
+      <linearGradient id="gCerca" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#6E9781"/><stop offset="100%" stop-color="#40916C"/>
+      </linearGradient>
+      <linearGradient id="gVentana" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#FFEDB6"/><stop offset="100%" stop-color="#E0BC4A"/>
+      </linearGradient>
+      <radialGradient id="gFarol" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#E0BC4A" stop-opacity=".55"/>
+        <stop offset="100%" stop-color="#E0BC4A" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+
+    <path d="M0 160 L120 104 L212 142 L332 76 L432 128 L544 88 L664 140 L784 98 L904 146 L1014 94 L1134 138 L1254 90 L1364 136 L1440 108 L1440 280 L0 280 Z"
+          fill="url(#gLejos)" opacity=".6"/>
+    <path d="M0 200 L140 156 L252 190 L382 140 L502 184 L622 150 L742 192 L862 154 L982 196 L1102 150 L1222 188 L1342 148 L1440 182 L1440 280 L0 280 Z"
+          fill="url(#gCerca)" opacity=".32"/>
+
+    <!-- Árboles del andén -->
+    <g fill="#2D6A4F" opacity=".5">
+      <path d="M300 232c0-16 10-28 22-28s22 12 22 28z"/><rect x="318" y="230" width="8" height="26"/>
+      <path d="M1080 236c0-14 9-25 20-25s20 11 20 25z"/><rect x="1096" y="234" width="8" height="24"/>
+    </g>
+
+    <!-- La fachada, con las luces prendidas -->
+    <g transform="translate(586 92)">
+      <ellipse cx="134" cy="120" rx="190" ry="80" fill="url(#gFarol)"/>
+      <path d="M14 52 L134 4 L254 52 L254 176 L14 176 Z" fill="#1B4332"/>
+      <path d="M14 52 L134 4 L254 52" fill="none" stroke="#C9A227" stroke-width="4"
+            stroke-linejoin="round"/>
+      <rect x="34" y="76" width="48" height="54" rx="4" fill="url(#gVentana)"/>
+      <rect x="110" y="76" width="48" height="54" rx="4" fill="url(#gVentana)"/>
+      <rect x="186" y="76" width="48" height="54" rx="4" fill="url(#gVentana)"/>
+      <path d="M58 76v54M134 76v54M210 76v54" stroke="#1B4332" stroke-width="3" opacity=".45"/>
+      <rect x="110" y="136" width="48" height="40" rx="3" fill="#0F2A20"/>
+      <rect x="122" y="148" width="24" height="4" rx="2" fill="#C9A227" opacity=".8"/>
+      <!-- Toldo -->
+      <path d="M8 66h252l-14 20H22z" fill="#C9A227" opacity=".9"/>
+      <circle cx="134" cy="34" r="7" fill="#C9A227"/>
+      <!-- Mesitas afuera -->
+      <g fill="#123528" opacity=".85">
+        <rect x="272" y="150" width="44" height="4" rx="2"/>
+        <rect x="292" y="154" width="4" height="22"/>
+        <rect x="-46" y="150" width="44" height="4" rx="2"/>
+        <rect x="-26" y="154" width="4" height="22"/>
+      </g>
+    </g>
+
+    <path d="M0 258 L1440 258 L1440 280 L0 280 Z" fill="#1B4332" opacity=".1"/>
+  </svg>
+
+  <a class="hero-scroll" href="#carta" aria-label="Bajar">↓</a>
+</section>
+
+<!-- ══════════════ EL DÍA ══════════════ -->
+<section class="seccion franja-dia" id="el-dia">
+  <div class="seccion-cab">
+    <span class="eyebrow claro">Nuestro oficio</span>
+    <h2>El día empieza a las cuatro de la mañana</h2>
+    <p class="seccion-sub claro">Cuando el barrio todavía duerme ya hay alguien
+      amasando. Así se reparte una jornada aquí.</p>
+  </div>
+  <ol class="dia">
+    <li>
+      <span class="dia-hora">4:00 a. m.</span>
+      <svg class="dia-ico" aria-hidden="true"><use href="#ico-pan"/></svg>
+      <h3>Se prende el horno</h3>
+      <p>La masa lleva la noche entera fermentando. El pan que le sirven al
+         desayuno salió del horno hace dos horas, no de un camión.</p>
+    </li>
+    <li>
+      <span class="dia-hora">6:00 a. m.</span>
+      <svg class="dia-ico" aria-hidden="true"><use href="#ico-olla"/></svg>
+      <h3>Sale el calentado</h3>
+      <p>Arroz, fríjoles, huevo y arepa. El desayuno de los que arrancan
+         temprano, servido cuando de verdad lo necesitan.</p>
+    </li>
+    <li>
+      <span class="dia-hora">7:00 a. m.</span>
+      <svg class="dia-ico" aria-hidden="true"><use href="#ico-naranja"/></svg>
+      <h3>Se exprimen las naranjas</h3>
+      <p>Cuatro por vaso, una por una y cuando usted lo pide. Por eso el jugo
+         se demora un poco más de lo que usted espera.</p>
+    </li>
+    <li>
+      <span class="dia-hora">12:00 m.</span>
+      <svg class="dia-ico" aria-hidden="true"><use href="#ico-plato"/></svg>
+      <h3>El almuerzo</h3>
+      <p>La sopa cambia todos los días según lo que llegó fresco de la plaza.
+         Nunca lo sabemos con una semana de anticipación, y está bien.</p>
+    </li>
+    <li>
+      <span class="dia-hora">9:00 p. m.</span>
+      <svg class="dia-ico" aria-hidden="true"><use href="#ico-hoja"/></svg>
+      <h3>Se cierra la cocina</h3>
+      <p>Lo que quedó bueno se guarda con frío y con fecha; mañana vuelve como
+         calentado. Lo que no, se da de baja. Nada se bota por pereza.</p>
+    </li>
+  </ol>
+</section>
+
+<!-- ══════════════ CARTA ══════════════ -->
+<section class="seccion" id="carta">
+  <div class="seccion-cab">
+    <span class="eyebrow">Nuestra carta</span>
+    <h2>Lo que cocinamos hoy</h2>
+    <p class="seccion-sub">Carta corta, a propósito. Preferimos hacer bien pocas
+      cosas con producto que llega fresco.</p>
+  </div>
+  <div id="carta-tabs" class="cat-tabs"></div>
+  <div id="carta-cont" class="carta-cont">
+    <div class="cargando">Cargando la carta…</div>
+  </div>
+</section>
+
+<!-- ══════════════ DE DÓNDE VIENE ══════════════ -->
+<section class="seccion origen">
+  <div class="seccion-cab">
+    <span class="eyebrow">De dónde viene</span>
+    <h2>Sabemos el nombre de quien nos vende</h2>
+    <p class="seccion-sub">No es una frase bonita: es la única forma de que el
+      producto sea igual de bueno el martes que el sábado.</p>
+  </div>
+  <div class="origen-grid">
+    <article class="origen-card">
+      <svg class="origen-ico" aria-hidden="true"><use href="#ico-taza"/></svg>
+      <h3>Café del Huila</h3>
+      <p>Grano de altura, tostión media. Se muele en la barra, vaso por vaso.</p>
+      <span class="origen-lugar">Huila</span>
+    </article>
+    <article class="origen-card">
+      <svg class="origen-ico" aria-hidden="true"><use href="#ico-hoja"/></svg>
+      <h3>Mora de Silvania</h3>
+      <p>Llega dos veces por semana. En agua o en leche, sin colorantes.</p>
+      <span class="origen-lugar">Cundinamarca</span>
+    </article>
+    <article class="origen-card">
+      <svg class="origen-ico" aria-hidden="true"><use href="#ico-plato"/></svg>
+      <h3>Papa criolla de Une</h3>
+      <p>Pequeña y amarilla de verdad. Acompaña el pollo a la plancha.</p>
+      <span class="origen-lugar">Cundinamarca</span>
+    </article>
+    <article class="origen-card">
+      <svg class="origen-ico" aria-hidden="true"><use href="#ico-mano"/></svg>
+      <h3>El pan, de aquí</h3>
+      <p>No lo compramos: lo hacemos. Harina, levadura, mantequilla y tiempo.</p>
+      <span class="origen-lugar">En casa</span>
+    </article>
+  </div>
+</section>
+
+<!-- ══════════════ NOSOTROS ══════════════ -->
+<section class="seccion alterna" id="nosotros">
+  <div class="dos-col">
+    <div>
+      <span class="eyebrow">Nosotros</span>
+      <h2>Un lugar de barrio con oficio de restaurante</h2>
+      <p id="nosotros-texto" class="parrafo"></p>
+      <div class="valores">
+        <div class="valor">
+          <svg class="valor-ico" aria-hidden="true"><use href="#ico-pan"/></svg>
+          <h3>Panadería propia</h3>
+          <p>Horneamos desde las cuatro de la mañana. El pan que le sirven no
+             vino en camión.</p>
+        </div>
+        <div class="valor">
+          <svg class="valor-ico" aria-hidden="true"><use href="#ico-naranja"/></svg>
+          <h3>Jugos al momento</h3>
+          <p>Se exprimen cuando usted los pide. Por eso tardan un poco más.</p>
+        </div>
+        <div class="valor">
+          <svg class="valor-ico" aria-hidden="true"><use href="#ico-reloj"/></svg>
+          <h3>Carta corta</h3>
+          <p>Cambia con lo que llega del mercado. Menos platos, mejor hechos.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-visual">
+      <div class="tarjeta-horario">
+        <svg class="th-ico" aria-hidden="true"><use href="#ico-reloj"/></svg>
+        <h3>Horarios</h3>
+        <pre id="horarios">Cargando…</pre>
+        <div class="estado-abierto" id="estado-abierto"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ RESERVA ══════════════ -->
+<section class="seccion reserva-sec" id="reservar">
+  <div class="reserva-caja">
+    <div class="reserva-info">
+      <span class="eyebrow claro">Reservas</span>
+      <h2>Aparte su mesa</h2>
+      <p>Le confirmamos por teléfono. Si es un grupo grande o una celebración,
+         cuéntenos en las notas y lo preparamos.</p>
+      <div class="reserva-contacto" id="reserva-contacto"></div>
+    </div>
+    <form class="reserva-form" data-act="enviarReserva" id="form-reserva">
+      <div class="campo">
+        <label for="rv-nombre">Su nombre</label>
+        <input type="text" id="rv-nombre" required placeholder="Nombre y apellido">
+      </div>
+      <div class="fila">
+        <div class="campo">
+          <label for="rv-tel">Teléfono</label>
+          <input type="tel" id="rv-tel" required placeholder="300 000 0000">
+        </div>
+        <div class="campo">
+          <label for="rv-email">Correo (opcional)</label>
+          <input type="email" id="rv-email" placeholder="correo@ejemplo.com">
+        </div>
+      </div>
+      <div class="fila">
+        <div class="campo">
+          <label for="rv-fecha">Fecha</label>
+          <input type="date" id="rv-fecha" required>
+        </div>
+        <div class="campo">
+          <label for="rv-hora">Hora</label>
+          <select id="rv-hora" required></select>
+        </div>
+        <div class="campo">
+          <label for="rv-pers">Personas</label>
+          <select id="rv-pers" required></select>
+        </div>
+      </div>
+      <div class="campo">
+        <label for="rv-notas">¿Algo que debamos saber?</label>
+        <textarea id="rv-notas" rows="2" placeholder="Celebración, silla de bebé, alergias…"></textarea>
+      </div>
+      <button type="submit" class="btn-lleno ancho" id="rv-btn">Reservar</button>
+      <div id="rv-msg" class="form-msg"></div>
+      <p class="rv-ya">¿Ya tiene una reserva?
+        <button type="button" data-act="abrirMiReserva">Consultarla o cancelarla</button>
+      </p>
+    </form>
+  </div>
+</section>
+
+<!-- ══════════════ OPINIONES ══════════════ -->
+<section class="seccion alterna" id="opiniones">
+  <div class="seccion-cab">
+    <span class="eyebrow">Opiniones</span>
+    <h2>Lo que dicen quienes ya vinieron</h2>
+    <div id="calif-resumen" class="calif-resumen"></div>
+  </div>
+  <div id="resenas-cont" class="resenas"></div>
+  <div class="centro">
+    <button class="btn-hueco" data-act="abrirResena">Escribir una opinión</button>
+  </div>
+</section>
+
+<!-- ══════════════ VISÍTANOS ══════════════ -->
+<section class="seccion" id="visitanos">
+  <div class="dos-col">
+    <div>
+      <span class="eyebrow">Visítanos</span>
+      <h2>Dónde estamos</h2>
+      <div class="contacto-lista" id="contacto-lista"></div>
+      <div class="redes" id="redes"></div>
+    </div>
+    <div class="mapa-caja" id="mapa-caja"></div>
+  </div>
+</section>
+
+<footer class="pie">
+  <div class="pie-cont">
+    <div>
+      <div class="marca-txt" id="pie-nombre">Restaurante</div>
+      <p class="pie-lema" id="pie-lema"></p>
+    </div>
+    <div class="pie-links">
+      <a href="#carta">Carta</a>
+      <a href="#reservar">Reservas</a>
+      <a href="#opiniones">Opiniones</a>
+      <button class="pie-admin" data-act="abrirLogin">Acceso del personal</button>
+    </div>
+  </div>
+  <div class="pie-legal">
+    <span id="pie-legal-txt"></span>
+  </div>
+</footer>
+
+<!-- ══════════════ MODAL ══════════════ -->
+<div class="modal" id="modal">
+  <div class="modal-caja">
+    <div class="modal-cab">
+      <h3 id="modal-t"></h3>
+      <button data-act="cerrarModal" aria-label="Cerrar">&times;</button>
+    </div>
+    <div class="modal-cuerpo" id="modal-b"></div>
+  </div>
+</div>
+
+<!-- Botón flotante de WhatsApp.
+     Es el canal por el que de verdad escribe la gente en Colombia: un
+     formulario de contacto se responde al día siguiente; un WhatsApp, en
+     minutos. El número sale del perfil de la sede, así que se cambia desde
+     el sistema sin tocar el código. -->
+<a id="wa-flota" class="wa-flota" href="#" target="_blank" rel="noopener"
+   aria-label="Escribirnos por WhatsApp" hidden>
+  <svg class="wa-ico" aria-hidden="true"><use href="#ico-wa"/></svg>
+  <span class="wa-txt">Escríbanos</span>
+</a>
+
+<div id="aviso"></div>
+
+<script src="/web/web.js?v=2.4.0"></script>
+</body>
+</html>
