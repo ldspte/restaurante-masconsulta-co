@@ -15,9 +15,9 @@ Sistema web de gestión y consulta interactiva para restaurantes. Diseñado para
 
 ## 🛠️ Tecnologías Utilizadas
 
-* **Frontend:** HTML5, CSS3, JavaScript (o el framework/librería correspondiente: React / Vue / Next.js)
-* **Backend:** Node.js / Python / PHP *(Ajustar según corresponda)*
-* **Base de Datos:** MySQL / PostgreSQL / MongoDB *(Ajustar según corresponda)*
+* **Frontend:** HTML5, CSS3, JavaScript 
+* **Backend:** Python
+* **Base de Datos:** MySQL(MariaDB) 
 * **Control de Versiones:** Git & GitHub
 
 ---
